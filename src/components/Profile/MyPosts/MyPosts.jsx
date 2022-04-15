@@ -2,15 +2,13 @@ import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from "./Post/Post";
 
-const MyPosts = () => {
+const MyPosts = (props) => {
     return (
         <div>
             My posts
             <div className={`${classes.item} ${classes.active}`}>New post</div>
-            <Post message={'Hi'} like_counts={15}/>
-            <Post message={'First post'} like_counts={20}/>
+            {props.posts.map(p => <Post message={p.message} like_counts={p.likesCount}/>)}
         </div>
-
     )
 }
 

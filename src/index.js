@@ -9,9 +9,25 @@ import {BrowserRouter} from "react-router-dom";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+let dialogs = [
+    {id: 1, name: "Anechka"},
+    {id: 2, name: "Maxim"},
+    {id: 3, name: "Reginald"},
+]
+
+let messages = [
+    {id: 1, text: "hi"},
+    {id: 2, text: "hello"},
+    {id: 3, text: "bye"},
+]
+let posts = [
+    {id: 1, message: "hi", likesCount: 12},
+    {id: 2, message: "how are you?", likesCount: 11},
+    {id: 3, message: "me first post", likesCount: 0},
+]
 root.render(
     <BrowserRouter>
-        <App/>
+        <App posts={posts} dialogs={dialogs} messages={messages}/>
     </BrowserRouter>
 )
 
