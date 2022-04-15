@@ -1,0 +1,7 @@
+.item{
+    color: #e34e4e;
+}
+
+.item.active{
+    color: gold;
+}
