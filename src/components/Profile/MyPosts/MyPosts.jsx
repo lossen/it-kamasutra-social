@@ -5,12 +5,12 @@ import Post from "./Post/Post";
 const MyPosts = (props) => {
 
     let newPostElement = React.createRef();
-    const addPost = () => {
+    const onAddPost = () => {
         props.addPost()
     }
     const onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text)
+        let newText = newPostElement.current.value;
+        props.updateNewPostText(newText)
     }
     return (
         <div>
@@ -21,7 +21,7 @@ const MyPosts = (props) => {
                           value={props.newPostText} onChange={onPostChange}/>
             </div>
             <div>
-                <button onClick={addPost}>Add post</button>
+                <button onClick={onAddPost}>Add post</button>
             </div>
             <div className={`${classes.item} ${classes.active}`}>New post</div>
             {props.posts.map(p => <Post message={p.message} like_counts={p.likesCount}/>)}
