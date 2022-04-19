@@ -10,20 +10,13 @@ import {Provider} from "react-redux";
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-
-export const rerenderEntireTree = () => {
-    root.render(
-        <BrowserRouter>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-         </BrowserRouter>
-    )
-}
-rerenderEntireTree();
-store.subscribe(() => {
-    rerenderEntireTree()
-})
+root.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

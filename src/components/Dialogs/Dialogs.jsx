@@ -16,15 +16,15 @@ const Dialogs = (props) => {
     return(
         <div className={classes.dialogs}>
             <div className="items">
-                {props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)}
+                {props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)}
             </div>
             <div className={classes.messages}>
                 <div>
-                    {props.messages.map(m => <MessageItem message={m.text} id={m.id}/>)}
+                    {props.dialogsPage.messages.map(m => <MessageItem message={m.text} id={m.id}/>)}
                 </div>
                 <div>
                     <div>
-                        <textarea onChange={onChangeMessageBody} value={props.newMessageBody} placeholder={'Enter your message'}/>
+                        <textarea onChange={onChangeMessageBody} value={props.dialogsPage.newMessageBody} placeholder={'Enter your message'}/>
                     </div>
                     <div>
                         <button onClick={onSendMessageClick}>Send</button>
