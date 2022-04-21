@@ -1,0 +1,9 @@
+.active{
+    font-weight: bold;
+    color: #89a5e5;
+}
+
+.page{
+    padding: 4px 8px;
+    font-size: 16px;
+}
