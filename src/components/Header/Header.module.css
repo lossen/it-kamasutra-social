@@ -5,4 +5,13 @@
 .header{
     grid-area: header;
     background: #e3ebfd;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+}
+
+.header a{
+    color: white;
 }
