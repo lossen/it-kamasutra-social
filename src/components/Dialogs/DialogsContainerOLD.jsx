@@ -1,5 +1,5 @@
 import React from 'react';
-import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogsReducer";
+import {sendMessage, updateNewMessageBody} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import StoreContext from "../../StoreContext";
 import {connect} from "react-redux";
@@ -9,11 +9,11 @@ const DialogsContainer = (props) => {
         {(store) => {
             let state = store.getState().dialogsPage;
             const sendMessage = () => {
-                store.dispatch(sendMessageActionCreator())
+                store.dispatch(sendMessage())
             }
 
             const updateNewMessageBody = (body) => {
-                store.dispatch(updateNewMessageBodyActionCreator(body))
+                store.dispatch(updateNewMessageBody(body))
             }
             return <Dialogs updateNewMessageBody={updateNewMessageBody}
                             sendMessage={sendMessage}
@@ -30,10 +30,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         updateNewMessageBody: () => {
-            dispatch(sendMessageActionCreator())
+            dispatch(sendMessage())
         },
         sendMessage: body => {
-            dispatch(updateNewMessageBodyActionCreator(body))
+            dispatch(updateNewMessageBody(body))
         }
     }
 
