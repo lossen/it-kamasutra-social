@@ -1,6 +1,5 @@
 import React from "react";
 import User from "./User/User";
-import classes from './Users.module.css'
 import Pagination from "./Pagination/Pagination";
 
 
@@ -17,7 +16,8 @@ const Users = (props) => {
                     <div>
 
                         <User key={user.id} {...user}
-                              followUser={props.followUser} unfollowUser={props.unfollowUser}/>
+                              followUser={props.followUser} unfollowUser={props.unfollowUser}
+                              followingProgressQueue={props.followingProgressQueue}/>
                     </div>
                 )
             })}

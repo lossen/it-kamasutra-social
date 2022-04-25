@@ -10,13 +10,15 @@ const User = (props) => {
     const onUnfollow = () => {
         props.unfollowUser(props.id)
     }
+    let isDisabled = props.followingProgressQueue.some(id => id === props.id);
+
     return <div className={classes.user}>
         <div className={classes.column}>
             <NavLink to={`/profile/${props.id}`} className={classes.avatar}>
                 <img className={classes.avatarImage} src={props.photos.small || Avatar} alt={'avatar'}/>
             </NavLink>
-            {props.followed ? <button onClick={onUnfollow}>unfollow</button> :
-                <button onClick={onFollow}>follow</button>}
+            {props.followed ? <button disabled={isDisabled} onClick={onUnfollow}>unfollow</button> :
+                <button disabled={isDisabled} onClick={onFollow}>follow</button>}
         </div>
         <div className={classes.row}>
             <div className={classes.column}>
