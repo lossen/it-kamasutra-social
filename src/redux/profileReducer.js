@@ -1,8 +1,9 @@
-import {usersAPI} from "../api";
+import {profileAPI} from "../api";
 
 const ADD_POST = "ADD_POST",
     UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT",
-    SET_USER_PROFILE = "SET_USER_PROFILE";
+    SET_USER_PROFILE = "SET_USER_PROFILE",
+    SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
 
 let initialState = {
     posts: [
@@ -11,7 +12,8 @@ let initialState = {
         {id: 3, message: "me first post", likesCount: 0},
     ],
     newPostText: '',
-    profile: null
+    profile: null,
+    profileStatus: ""
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -33,6 +35,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 profile: action.profile
             }
+        case SET_PROFILE_STATUS:
+            return {
+                ...state,
+                profileStatus: action.profileStatus
+            }
         default: return state;
     }
 }
@@ -46,14 +53,37 @@ export const updateNewPostText = (newText) => ({
 export const setUserProfile = (profile) => ({
     type: SET_USER_PROFILE,
     profile})
+
+export const setProfileStatus = (profileStatus) => ({
+    type: SET_PROFILE_STATUS,
+    profileStatus
+})
 //action creators end
 
 //thunk creators
 export const getProfileDataThunkCreator = (userId) =>
     (dispatch) => {
-        usersAPI.getProfileData(userId)
+        profileAPI.getProfileData(userId)
             .then(data => {
                 dispatch(setUserProfile(data))
+            })
+    }
+
+export const getProfileStatusThunkCreator = (userId) =>
+    (dispatch) => {
+        profileAPI.getProfileStatus(userId)
+            .then(data => {
+                dispatch(setProfileStatus(data))
+            })
+    }
+
+export const setProfileStatusThunkCreator = (status) =>
+    (dispatch) => {
+        profileAPI.setProfileStatus(status)
+            .then(res => {
+                if(res.data.resultCode === 0){
+                    dispatch(setProfileStatus(status))
+                }
             })
     }
 //thunk creators end
