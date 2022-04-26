@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './ProfileInfo.module.css';
 import Loader from "../../common/Loader/Loader";
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
     if(!props.profile) return <Loader isFetching={true}/>
@@ -12,6 +13,8 @@ const ProfileInfo = (props) => {
             <div>
                 <img src={props.profile.photos.small} alt="avatar"/>
                 About me
+                <ProfileStatus/>
+
                 <div>
                     {props.profile.aboutMe}
                 </div>

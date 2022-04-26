@@ -8,6 +8,8 @@ import {
 import React from "react";
 import Users from "./Users";
 import Loader from "../common/Loader/Loader";
+import {compose} from "redux";
+import withRedirect from "../hocs/withRedirect/withRedirect";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -52,17 +54,19 @@ const mapStateToProps = (state) => ({
     followingProgressQueue: state.usersPage.followingProgressQueue,
 })
 
-
-export default connect(mapStateToProps,
-    {
-        followUser,
-        unfollowUser,
-        setUsers,
-        setCurrentPage,
-        setTotalUsersCount,
-        setFetching,
-        toggleFollowingIsFetching,
-        getUsersThunkCreator,
-        followUserThunkCreator,
-        unfollowUserThunkCreator
-    })(UsersContainer);
+export default compose(
+    connect(mapStateToProps,
+        {
+            followUser,
+            unfollowUser,
+            setUsers,
+            setCurrentPage,
+            setTotalUsersCount,
+            setFetching,
+            toggleFollowingIsFetching,
+            getUsersThunkCreator,
+            followUserThunkCreator,
+            unfollowUserThunkCreator
+        }),
+    withRedirect
+)(UsersContainer);
