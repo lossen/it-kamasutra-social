@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './Post.module.css';
 
 const Post = (props) => {
+    let {body} = props.data;
     return (
         <div className={classes.item}>
             <div className={classes.avatar}>
@@ -9,7 +10,7 @@ const Post = (props) => {
             </div>
             <div className={classes.flexCol}>
                 <div className={classes.postBox}>
-                    {props.message}
+                    {body}
                 </div>
                 <div>
                     <button>Like </button>

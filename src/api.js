@@ -35,11 +35,26 @@ export const profileAPI = {
     },
     setProfileStatus(status){
         return instance.put(`/profile/status`, {status})
-    }
+    },
+    addNewPost(post){
+        return instance.post(`/profile/posts`, {post})
+    },
+}
+
+export const dialogsAPI = {
+    sendNewMessage(body){
+        return instance.post(`dialogs/${2}/messages`,{body}).then(response => response.data)
+    },
+
 }
 
 export const authAPI = {
-    login(){
+    checkLogin(){
         return instance.get(`auth/me/`).then(response => response.data)
+    },
+    login(email, password) {
+        return instance.post('/auth/login', {
+            email, password
+        })
     }
 }

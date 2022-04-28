@@ -1,13 +1,9 @@
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY",
-    SEND_MESSAGE = "SEND_MESSAGE";
+import {dialogsAPI} from "../api";
+
+const SEND_MESSAGE = "SEND_MESSAGE";
 
 let initialState = {
-    messages: [
-        {id: 1, text: "hi"},
-        {id: 2, text: "hello"},
-        {id: 3, text: "bye"},
-    ],
-    newMessageBody: '',
+    messages: [],
     dialogs: [
         {id: 1, name: "Anechka"},
         {id: 2, name: "Maxim"},
@@ -16,29 +12,25 @@ let initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
-
     switch (action.type){
-        case UPDATE_NEW_MESSAGE_BODY:
-            return{
-            ...state,
-                newMessageBody: action.body
-            }
         case SEND_MESSAGE:
-            let newMessage = {id: 4, text: state.newMessageBody};
             return {
                 ...state,
-                messages: [...state.messages, newMessage],
-                newMessageBody: ''
+                messages: [...state.messages, action.newMessage],
             }
         default: return state;
     }
 }
 
-export const sendMessage = () => ({type: SEND_MESSAGE})
+export const sendMessage = (newMessage) => ({type: SEND_MESSAGE, newMessage})
 
-export const updateNewMessageBody = (body) => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body
-})
-
+export const sendMessageThunkCreator = (body) =>
+    (dispatch) => {
+        dialogsAPI.sendNewMessage(body)
+            .then(res => {
+                if(res.resultCode === 0){
+                    dispatch(sendMessage(res.data.message))
+                }
+            })
+    }
 export default dialogsReducer;
