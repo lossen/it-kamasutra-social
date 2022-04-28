@@ -47,6 +47,6 @@ export default compose(
         getProfileStatusThunkCreator,
         setProfileStatusThunkCreator
     }),
-    // withRedirect,
+    withRedirect,
     withRouter
 )(ProfileContainer);

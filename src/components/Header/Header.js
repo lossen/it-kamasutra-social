@@ -9,6 +9,7 @@ const Header = (props) => {
             <img className={classes.logo} src={Logo} alt=""/>
             <div>
                 {props.isAuth ? props.login : <NavLink to={'/login'}>Login</NavLink>}
+                {props.isAuth && <button onClick={props.logoutThunkCreator}>logout</button>}
             </div>
         </header>
     )

@@ -52,9 +52,12 @@ export const authAPI = {
     checkLogin(){
         return instance.get(`auth/me/`).then(response => response.data)
     },
-    login(email, password) {
+    login(email, password,rememberMe = false) {
         return instance.post('/auth/login', {
-            email, password
-        })
-    }
+            email, password,rememberMe
+        }).then(response => response.data)
+    },
+    logout() {
+        return instance.delete('/auth/login').then(response => response.data)
+    },
 }
