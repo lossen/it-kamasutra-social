@@ -9,13 +9,18 @@ import LoginContainer from "./components/Login/LoginContainer";
 import {Component} from "react";
 import {checkLoginThunkCreator} from "./redux/authReducer";
 import {connect} from "react-redux";
+import {initialisedSuccessfulThunkCreator} from "./redux/appReducer";
+import Loader from "./components/common/Loader/Loader";
 
 
 class App extends Component {
     componentDidMount() {
-        this.props.checkLoginThunkCreator()
+        this.props.initialisedSuccessfulThunkCreator()
     }
     render() {
+        if(!this.props.initialised){
+            return <Loader isFetching/>
+        }
         return (
             <div className="app-wrapper">
                 <HeaderContainer/>
@@ -39,6 +44,11 @@ class App extends Component {
     }
 }
 
-export default connect(null,{
-    checkLoginThunkCreator
+let mapStateToProps = (state) => ({
+    initialised: state.app.initialised
+})
+
+export default connect(mapStateToProps,{
+    checkLoginThunkCreator,
+    initialisedSuccessfulThunkCreator
 })(App);

@@ -32,7 +32,7 @@ export const setAuthUserData = (userId,email,login,isAuth) => ({
 //thunk creators
 export const checkLoginThunkCreator = () => //thunk creator
     (dispatch) => { //thunk function
-        authAPI.checkLogin()
+        return authAPI.checkLogin()
             .then(data => {
                 if(data.resultCode === 0){
                     let {id,email,login} = data.data;
