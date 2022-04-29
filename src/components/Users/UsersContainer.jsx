@@ -9,7 +9,7 @@ import React from "react";
 import Users from "./Users";
 import Loader from "../common/Loader/Loader";
 import {compose} from "redux";
-import withRedirect from "../hocs/withRedirect/withRedirect";
+import withRedirect from "../hocs/withAuthRedirect/withAuthRedirect";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
