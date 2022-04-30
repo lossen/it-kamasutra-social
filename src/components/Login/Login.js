@@ -3,11 +3,11 @@ import {Field} from "redux-form";
 import {Input} from "../common/Forms/FormControls";
 import {required} from "../../utils/validators";
 import classes from "./Login.module.css";
-const Login = (props) => {
+const Login = ({handleSubmit, error}) => {
     return(
         <div>
             <h1>Login page</h1>
-            <form onSubmit={props.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <Field name={"email"} type="text" placeholder="Email" component={Input} validate={required}/>
                 </div>
@@ -17,8 +17,8 @@ const Login = (props) => {
                 <div>
                     <Field name={"rememberMe"} type="checkbox" component={"input"}/> Remember me
                 </div>
-                {props.error && <div className={classes.errorBox}>
-                    <span className={classes.errorTitle}>{props.error}</span>
+                {error && <div className={classes.errorBox}>
+                    <span className={classes.errorTitle}>{error}</span>
                 </div>}
                 <button>Submit</button>
             </form>

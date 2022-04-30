@@ -1,49 +1,15 @@
 import {usersAPI} from "../api";
+import {updateObjectsInArray} from "../utils/helpers";
 
 const FOLLOW_USER = 'FOLLOW_USER',
-UNFOLLOW_USER = 'UNFOLLOW_USER',
-SET_USERS = 'SET_USERS',
-SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
-SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT',
-SET_FETCHING = 'SET_FETCHING',
-SET_FOLLOWING_PROGRESS_QUEUE = 'SET_FOLLOWING_PROGRESS_QUEUE';
+    UNFOLLOW_USER = 'UNFOLLOW_USER',
+    SET_USERS = 'SET_USERS',
+    SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
+    SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT',
+    SET_FETCHING = 'SET_FETCHING',
+    SET_FOLLOWING_PROGRESS_QUEUE = 'SET_FOLLOWING_PROGRESS_QUEUE';
 
 let initialState = {
-    // users: [
-    //     {
-    //         id: 0,
-    //         name: 'Anechka',
-    //         avatar: 'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80',
-    //         status: 'At work',
-    //         location: {
-    //             country: 'Russia',
-    //             city: 'Omsk',
-    //         },
-    //         followed: true
-    //     },
-    //     {
-    //         id: 1,
-    //         name: 'Maxim',
-    //         avatar: 'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80',
-    //         status: 'Looking for a job',
-    //         location: {
-    //             country: 'Russia',
-    //             city: 'Omsk',
-    //         },
-    //         followed: false
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'Regi',
-    //         avatar: 'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80',
-    //         status: 'Looking for a job',
-    //         location: {
-    //             country: 'Russia',
-    //             city: 'Omsk',
-    //         },
-    //         followed: false
-    //     }
-    // ],
     users: [],
     pageSize: 100,
     totalUsersCount: 21,
@@ -57,18 +23,12 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW_USER:
             return {
                 ...state,
-                users: [...state.users.map(user => {
-                    if(user.id === action.user_id) return {...user, followed: true}
-                    return user;
-                })]
+                users: updateObjectsInArray(state.users, action.user_id, 'id', {followed: true})
             }
         case UNFOLLOW_USER:
             return {
                 ...state,
-                users: [...state.users.map(user => {
-                    if(user.id === action.user_id) return {...user, followed: false}
-                    return user;
-                })]
+                users: updateObjectsInArray(state.users, action.user_id, 'id', {followed: false})
             }
         case SET_USERS:
             return {
@@ -145,7 +105,7 @@ export const setFetching = (isFetching) => {
     }
 }
 
-export const toggleFollowingIsFetching = (isFetching,userId) => {
+export const toggleFollowingIsFetching = (isFetching, userId) => {
     return {
         type: SET_FOLLOWING_PROGRESS_QUEUE,
         isFetching,
@@ -156,36 +116,30 @@ export const toggleFollowingIsFetching = (isFetching,userId) => {
 
 //thunk creators
 export const getUsersThunkCreator = (page, pageSize) =>
-    (dispatch) => { //thunk function
+    async (dispatch) => { //thunk function
         dispatch(setFetching(true))
-        usersAPI.getUsers(page, pageSize)
-            .then(data => {
-                dispatch(setFetching(false))
-                dispatch(setUsers(data.items))
-                dispatch(setTotalUsersCount(data.totalCount))
-            })
+        let data = await usersAPI.getUsers(page, pageSize);
+        dispatch(setFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUsersCount(data.totalCount))
     }
 
+const followUnfollowFlow = async (dispatch, user_id, apiMethod, actionCreator) => {
+    dispatch(toggleFollowingIsFetching(true, user_id))
+    let data = await apiMethod(user_id)
+    if (data.resultCode === 0) {
+        dispatch(actionCreator(user_id))
+        dispatch(toggleFollowingIsFetching(false, user_id))
+    }
+}
 export const followUserThunkCreator = (user_id) =>//thunk creator
-    (dispatch) => {//thunk function
-        dispatch(toggleFollowingIsFetching(true,user_id))
-        usersAPI.followUser(user_id)
-            .then(res => {
-                dispatch(followUser(user_id))
-                dispatch(toggleFollowingIsFetching(false,user_id))
-            })
-
+    async (dispatch) => {//thunk function
+        await followUnfollowFlow(dispatch, user_id, usersAPI.followUser, followUser)
     }
 
 export const unfollowUserThunkCreator = (user_id) =>//thunk creator
-    (dispatch) => {//thunk function
-        dispatch(toggleFollowingIsFetching(true,user_id))
-        usersAPI.unfollowUser(user_id)
-            .then(res => {
-                dispatch(unfollowUser(user_id))
-                dispatch(toggleFollowingIsFetching(false,user_id))
-            })
-
+    async (dispatch) => {//thunk function
+        await followUnfollowFlow(dispatch, user_id, usersAPI.unfollowUser, unfollowUser)
     }
 //thunk functions end
 export default usersReducer;

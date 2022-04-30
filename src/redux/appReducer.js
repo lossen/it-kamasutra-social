@@ -27,11 +27,9 @@ export const initialisedSuccessful = () => ({
 
 //thunk creators
 export const initialisedSuccessfulThunkCreator = () =>
-    (dispatch) => {
-        dispatch(checkLoginThunkCreator())
-            .then(() => {
-                dispatch(initialisedSuccessful())
-            })
+    async (dispatch) => {
+        await dispatch(checkLoginThunkCreator())
+        dispatch(initialisedSuccessful())
     }
 
 

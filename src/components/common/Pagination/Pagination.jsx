@@ -10,7 +10,7 @@ const Pagination = (props) => {
 
     const onChangePage = (page) => {
         props.setCurrentPage(page)
-        props.getUsers(page)
+        props.getList(page)
     }
     return (
         pages.map((page,i) => {

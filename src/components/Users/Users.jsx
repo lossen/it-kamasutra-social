@@ -1,6 +1,6 @@
 import React from "react";
 import User from "./User/User";
-import Pagination from "./Pagination/Pagination";
+import Pagination from "../common/Pagination/Pagination";
 
 
 const Users = (props) => {
@@ -10,7 +10,7 @@ const Users = (props) => {
                         pageSize={props.pageSize}
                         currentPage={props.currentPage}
                         setCurrentPage={props.setCurrentPage}
-                        getUsers={props.getUsers}/>
+                        getList={props.getUsers}/>
             {props.users && props.users.map(user => {
                 return (
                     <div>

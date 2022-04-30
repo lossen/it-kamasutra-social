@@ -1,9 +1,10 @@
 import {profileAPI} from "../api";
+import {APP_NAME} from "../commonConsts";
 
-const ADD_POST = "ADD_POST",
-    SET_USER_PROFILE = "SET_USER_PROFILE",
-    SET_PROFILE_STATUS = "SET_PROFILE_STATUS",
-    DELETE_POST = "DELETE_POST";
+const ADD_POST = `${APP_NAME}/profile/ADD_POST`,
+    SET_USER_PROFILE = `${APP_NAME}/profile/SET_USER_PROFILE`,
+    SET_PROFILE_STATUS = `${APP_NAME}/profile/SET_PROFILE_STATUS`,
+    DELETE_POST = `${APP_NAME}/profile/DELETE_POST`;
 
 let initialState = {
     posts: [
@@ -57,40 +58,31 @@ export const setProfileStatus = (profileStatus) => ({
 
 //thunk creators
 export const getProfileDataThunkCreator = (userId) =>
-    (dispatch) => {
-        profileAPI.getProfileData(userId)
-            .then(data => {
-                dispatch(setUserProfile(data))
-            })
+    async (dispatch) => {
+        let data = await profileAPI.getProfileData(userId)
+        dispatch(setUserProfile(data))
     }
 
 export const getProfileStatusThunkCreator = (userId) =>
-    (dispatch) => {
-        profileAPI.getProfileStatus(userId)
-            .then(data => {
-                dispatch(setProfileStatus(data))
-            })
+    async (dispatch) => {
+        let data = await profileAPI.getProfileStatus(userId)
+        dispatch(setProfileStatus(data))
     }
 
 export const setProfileStatusThunkCreator = (status) =>
-    (dispatch) => {
-        profileAPI.setProfileStatus(status)
-            .then(res => {
-                if(res.data.resultCode === 0){
-                    dispatch(setProfileStatus(status))
-                }
-            })
+    async (dispatch) => {
+        let res = await profileAPI.setProfileStatus(status)
+        if (res.data.resultCode === 0) {
+            dispatch(setProfileStatus(status))
+        }
     }
 
 export const addPostThunkCreator = (newPostText) =>
-    (dispatch) => {
-        profileAPI.addNewPost(newPostText)
-            .then(data => {
-                debugger
-                if(data.resultCode === 0){
-                    dispatch(addPost(data.post))
-                }
-            })
+    async (dispatch) => {
+        let data = await profileAPI.addNewPost(newPostText)
+        if (data.resultCode === 0) {
+            dispatch(addPost(data.post))
+        }
     }
 //thunk creators end
 export default profileReducer;
