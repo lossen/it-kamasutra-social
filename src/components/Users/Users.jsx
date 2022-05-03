@@ -6,11 +6,12 @@ import Pagination from "../common/Pagination/Pagination";
 const Users = (props) => {
     return (
         <div>
-            <Pagination totalUsersCount={props.totalUsersCount}
+            <Pagination totalItemsCount={props.totalUsersCount}
                         pageSize={props.pageSize}
                         currentPage={props.currentPage}
                         setCurrentPage={props.setCurrentPage}
-                        getList={props.getUsers}/>
+                        getList={props.getUsers}
+                        portionSize={10}/>
             {props.users && props.users.map(user => {
                 return (
                     <div>

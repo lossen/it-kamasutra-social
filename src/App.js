@@ -6,7 +6,7 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/LoginContainer";
-import {Component} from "react";
+import React, {Component} from "react";
 import {checkLoginThunkCreator} from "./redux/authReducer";
 import {connect} from "react-redux";
 import {initialisedSuccessfulThunkCreator} from "./redux/appReducer";
