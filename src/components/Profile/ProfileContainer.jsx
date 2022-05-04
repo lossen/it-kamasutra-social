@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
     getProfileDataThunkCreator,
-    getProfileStatusThunkCreator,
+    getProfileStatusThunkCreator, saveAvatar,
     setProfileStatusThunkCreator,
     setUserProfile
 } from "../../redux/profileReducer";
@@ -15,10 +15,10 @@ const ProfileContainer = (props) => {
 
     useEffect(() => {
         getProfileData()
-    },[])
+    }, [props.userI, props.params.user_id])
     const getProfileData = () => {
         let userId = props.params.user_id;
-        if(!userId) userId = props.userId;
+        if (!userId) userId = props.userId;
         props.getProfileDataThunkCreator(userId)
         props.getProfileStatusThunkCreator(userId)
     }
@@ -26,9 +26,10 @@ const ProfileContainer = (props) => {
         props.setProfileStatusThunkCreator(status)
     }
 
-    return(
+    return (
         <Profile {...props} profile={props.profile}
-                 updateProfileStatus={updateProfileStatus}/>
+                 updateProfileStatus={updateProfileStatus}
+                 isOwner={!props.params.user_id && props.userId}/>
     )
 }
 
@@ -40,11 +41,12 @@ let mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps,{
+    connect(mapStateToProps, {
         setUserProfile,
         getProfileDataThunkCreator,
         getProfileStatusThunkCreator,
-        setProfileStatusThunkCreator
+        setProfileStatusThunkCreator,
+        saveAvatar
     }),
     withRedirect,
     withRouter

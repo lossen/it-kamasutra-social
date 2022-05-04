@@ -39,11 +39,22 @@ export const profileAPI = {
     addNewPost(post){
         return instance.post(`/profile/posts`, {post})
     },
+    sendPhoto(image){
+        const formData = new FormData();
+        formData.append("image",image)
+        return instance.put(`/profile/photo`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(response => response.data)
+    },
 }
 
 export const dialogsAPI = {
     sendNewMessage(body){
-        return instance.post(`dialogs/${2}/messages`,{body}).then(response => response.data)
+        return instance.post(`dialogs/${2}/messages`,{body},{
+
+        }).then(response => response.data)
     },
 
 }

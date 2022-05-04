@@ -4,7 +4,8 @@ import {APP_NAME} from "../commonConsts";
 const ADD_POST = `${APP_NAME}/profile/ADD_POST`,
     SET_USER_PROFILE = `${APP_NAME}/profile/SET_USER_PROFILE`,
     SET_PROFILE_STATUS = `${APP_NAME}/profile/SET_PROFILE_STATUS`,
-    DELETE_POST = `${APP_NAME}/profile/DELETE_POST`;
+    DELETE_POST = `${APP_NAME}/profile/DELETE_POST`,
+    SAVE_PHOTOS = `${APP_NAME}/profile/SAVE_PHOTOS`;
 
 let initialState = {
     posts: [
@@ -39,12 +40,18 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 posts: [...state.posts].filter(p => p.id !== action.id)
             }
+        case SAVE_PHOTOS:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
         default: return state;
     }
 }
 //action creators
 export const addPost = (body) => ({type: ADD_POST, body})
 export const deletePost = (id) => ({type: DELETE_POST, id})
+export const saveAvatarActionCreator = (photos) => ({type: SAVE_PHOTOS, photos})
 
 export const setUserProfile = (profile) => ({
     type: SET_USER_PROFILE,
@@ -82,6 +89,14 @@ export const addPostThunkCreator = (newPostText) =>
         let data = await profileAPI.addNewPost(newPostText)
         if (data.resultCode === 0) {
             dispatch(addPost(data.post))
+        }
+    }
+
+export const saveAvatar = (file) =>
+    async (dispatch) => {
+        let res = await profileAPI.sendPhoto(file)
+        if (res.resultCode === 0) {
+            dispatch(saveAvatarActionCreator(res.data.photos))
         }
     }
 //thunk creators end
