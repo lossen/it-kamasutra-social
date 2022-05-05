@@ -1,5 +1,6 @@
 import {profileAPI} from "../api";
 import {APP_NAME} from "../commonConsts";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = `${APP_NAME}/profile/ADD_POST`,
     SET_USER_PROFILE = `${APP_NAME}/profile/SET_USER_PROFILE`,
@@ -97,6 +98,17 @@ export const saveAvatar = (file) =>
         let res = await profileAPI.sendPhoto(file)
         if (res.resultCode === 0) {
             dispatch(saveAvatarActionCreator(res.data.photos))
+        }
+    }
+
+export const saveProfileData = (data) =>
+    async (dispatch,getState) => {
+        let res = await profileAPI.saveProfile(data)
+        if (res.resultCode === 0) {
+            dispatch(getProfileDataThunkCreator(getState().auth.userId))
+        }else {
+            dispatch(stopSubmit("profileDataForm", {"contacts": {"_error": res.messages[0]}}))
+            return Promise.reject(res.messages[0])
         }
     }
 //thunk creators end

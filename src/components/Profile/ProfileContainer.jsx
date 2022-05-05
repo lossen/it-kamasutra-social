@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
     getProfileDataThunkCreator,
-    getProfileStatusThunkCreator, saveAvatar,
+    getProfileStatusThunkCreator, saveAvatar, saveProfileData,
     setProfileStatusThunkCreator,
     setUserProfile
 } from "../../redux/profileReducer";
@@ -46,7 +46,8 @@ export default compose(
         getProfileDataThunkCreator,
         getProfileStatusThunkCreator,
         setProfileStatusThunkCreator,
-        saveAvatar
+        saveAvatar,
+        saveProfileData
     }),
     withRedirect,
     withRouter

@@ -48,6 +48,17 @@ export const profileAPI = {
             }
         }).then(response => response.data)
     },
+    saveProfile(data){
+        return instance.put(`/profile`, {...data})
+            .then(response => response.data)
+    },
+}
+
+export const securityAPI = {
+    getCaptchaUrl(){
+        return instance.get(`/security/get-captcha-url`)
+            .then(response => response.data)
+    }
 }
 
 export const dialogsAPI = {
@@ -63,9 +74,9 @@ export const authAPI = {
     checkLogin(){
         return instance.get(`auth/me/`).then(response => response.data)
     },
-    login(email, password,rememberMe = false) {
+    login(email, password,rememberMe = false, captcha) {
         return instance.post('/auth/login', {
-            email, password,rememberMe
+            email, password,rememberMe,captcha
         }).then(response => response.data)
     },
     logout() {

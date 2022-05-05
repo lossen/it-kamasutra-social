@@ -11,9 +11,9 @@ let ReduxFormLogin = reduxForm({
 
 const LoginContainer = (props) => {
     const onSubmit = (formData) => {
-        let {email, password, rememberMe} = formData;
+        let {email, password, rememberMe, captcha} = formData;
         if (formData) {
-            props.loginThunkCreator(email, password,rememberMe)
+            props.loginThunkCreator(email, password,rememberMe,captcha)
         }
     }
     if(props.isAuth) return <Navigate to={"/profile"}/>
@@ -23,7 +23,8 @@ const LoginContainer = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
 })
 
 export default connect(mapStateToProps, {
