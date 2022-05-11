@@ -1,4 +1,5 @@
 import {dialogsAPI} from "../api";
+import {MessageType} from "../types/types";
 
 const SEND_MESSAGE = "SEND_MESSAGE";
 let initialState = {
@@ -13,10 +14,6 @@ type initialStateType = typeof initialState;
 type DialogType = {
     id: number,
     name: string
-}
-type MessageType = {
-    id: number,
-    message: string
 }
 
 const dialogsReducer = (state = initialState, action):initialStateType => {

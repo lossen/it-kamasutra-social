@@ -1,6 +1,11 @@
 import React from "react";
+import {ProfileType} from "../../../../types/types";
 
-const ProfileData = ({profile,setEditMode}) => {
+type PropsType = {
+    profile: ProfileType
+    setEditMode: () => void
+}
+const ProfileData:React.FC<PropsType> = ({profile,setEditMode}) => {
     const handleEditMode = () => {
         setEditMode()
     }

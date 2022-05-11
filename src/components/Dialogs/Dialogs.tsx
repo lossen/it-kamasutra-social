@@ -3,8 +3,16 @@ import classes from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
 import {Field, reduxForm} from "redux-form";
+import {DialogType, MessageType} from "../../types/types";
 
-const Dialogs = (props) => {
+type PropsType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    sendMessageThunkCreator: (message:string) => void
+
+}
+
+const Dialogs:React.FC<PropsType> = (props) => {
     const onSendMessageClick = (formData) => {
         props.sendMessageThunkCreator(formData.message)
     }
@@ -12,11 +20,11 @@ const Dialogs = (props) => {
     return(
         <div className={classes.dialogs}>
             <div className="items">
-                {props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)}
+                {props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)}
             </div>
             <div className={classes.messages}>
                 <div>
-                    {props.dialogsPage.messages.map(m => <MessageItem data={m}/>)}
+                    {props.messages.map(m => <MessageItem data={m}/>)}
                 </div>
                 <div>
                     <WithReduxAddMessageForm onSubmit={onSendMessageClick}/>

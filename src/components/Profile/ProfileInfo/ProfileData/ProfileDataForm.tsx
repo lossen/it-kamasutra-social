@@ -2,8 +2,15 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../../common/Forms/FormControls";
 import classes from "../../../Login/Login.module.css";
+import {ProfileType} from "../../../../types/types";
 
-const ProfileDataForm = ({error,...props}) => {
+type PropsType = {
+    profile: ProfileType
+    error: any
+    handleSubmit: () => void
+}
+
+const ProfileDataForm:React.FC<PropsType> = ({error,...props}) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
             <b>Full name:</b>

@@ -115,7 +115,7 @@ export const saveProfileData = (data:ProfileType) =>
     async (dispatch,getState) => {
         let res = await profileAPI.saveProfile(data)
         if (res.resultCode === 0) {
-            dispatch(getProfileDataThunkCreator(getState().auth.userId))
+            return dispatch(getProfileDataThunkCreator(getState().auth.userId))
         }else {
             dispatch(stopSubmit("profileDataForm", {"contacts": {"_error": res.messages[0]}}))
             return Promise.reject(res.messages[0])

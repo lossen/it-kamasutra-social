@@ -2,12 +2,23 @@ import React, {useState} from 'react';
 import classes from './ProfileInfo.module.css';
 import Loader from "../../common/Loader/Loader";
 import ProfileStatus from "./ProfileStatus";
+// @ts-ignore
 import Avatar from '../../../images/avatar.placeholder.png'
 import AvatarUploader from "./AvatarUploader/AvatarUploader";
 import ProfileData from "./ProfileData/ProfileData";
 import ReduxFormEditProfile from "./ProfileData/ProfileDataForm";
+import {ProfileType} from "../../../types/types";
 
-const ProfileInfo = ({profile,profileStatus,updateProfileStatus,...props}) => {
+type PropsType = {
+    profile: ProfileType
+    profileStatus: string
+    isOwner: boolean
+    updateProfileStatus: (status:string) => void
+    saveAvatar: (file:File) => void
+    saveProfileData: (formData:ProfileType) => Promise<any>
+}
+
+const ProfileInfo:React.FC<PropsType> = ({profile,profileStatus,updateProfileStatus,...props}) => {
     let [editMode, setEditMode] = useState(false);
     if(!profile) return <Loader isFetching={true}/>
 
@@ -29,7 +40,8 @@ const ProfileInfo = ({profile,profileStatus,updateProfileStatus,...props}) => {
                 </div>
             </div>
             <ProfileStatus profileStatus={profileStatus} updateProfileStatus={updateProfileStatus}/>
-            {editMode ? <ReduxFormEditProfile initialValues={profile} profile={profile} onSubmit={onSubmit}/> : <ProfileData setEditMode={() => setEditMode(!editMode)} profile={profile} isOwner={props.isOwner}/>}
+            {editMode ? <ReduxFormEditProfile initialValues={profile} profile={profile} onSubmit={onSubmit}/> :
+                <ProfileData setEditMode={() => setEditMode(!editMode)} profile={profile}/>}
         </div>
 
     )

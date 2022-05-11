@@ -1,9 +1,22 @@
 import React from "react";
 import classes from "./User.module.css";
+// @ts-ignore
 import Avatar from '../../../images/avatar.placeholder.png'
 import {NavLink} from "react-router-dom";
+import {PhotosType} from "../../../types/types";
 
-const User = (props) => {
+type PropsType = {
+    id: number
+    followingProgressQueue: Array<number>
+    followed: boolean
+    photos: PhotosType
+    name: string
+    status: string
+
+    followUser: (user_id:number) => void
+    unfollowUser: (user_id:number) => void
+}
+const User:React.FC<PropsType> = (props) => {
     const onFollow = () => {
         props.followUser(props.id)
     }

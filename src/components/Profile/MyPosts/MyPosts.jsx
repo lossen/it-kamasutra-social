@@ -8,7 +8,6 @@ import {Textarea} from "../../common/Forms/FormControls";
 const MyPosts = (props) => {
 
     const onAddPost = (formData) => {
-        console.log(formData,'formData')
         props.addPostThunkCreator(formData.newPost)
     }
 
