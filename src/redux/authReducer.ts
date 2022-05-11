@@ -5,33 +5,48 @@ import {APP_NAME} from "../commonConsts";
 const SET_USER_DATA = `${APP_NAME}/auth/SET_USER_DATA`;
 const SET_CAPTCHA_URL = `${APP_NAME}/auth/SET_CAPTCHA_URL`;
 
+type InitialStateType = typeof initialState;
 let initialState = {
-    userId: null,
-    email: null,
-    login: null,
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false,
-    captchaUrl: null, //if null then captcha is not required
+    captchaUrl: null as string | null,
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action): InitialStateType => {
     switch (action.type){
         case SET_USER_DATA:
         case SET_CAPTCHA_URL:
             return {
                 ...state,
-                ...action.payload
+                ...action.payload,
             }
         default: return state;
     }
 }
 //action creators
 
-export const setAuthUserData = (userId,email,login,isAuth) => ({
+type setAuthUserDataActionPayloadType = {
+    userId: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean,
+}
+type setAuthUserDataActionType = {
+    type: typeof SET_USER_DATA,
+    payload: setAuthUserDataActionPayloadType
+}
+export const setAuthUserData = (userId:number,email: string,login: string,isAuth: boolean):setAuthUserDataActionType => ({
     type: SET_USER_DATA,
     payload: {userId,email,login,isAuth}
 })
 
-export const getCaptchaUrlActionCreator = (captchaUrl) => ({
+type getCaptchaUrlActionCreatorType = {
+    type: typeof SET_CAPTCHA_URL,
+    payload: {captchaUrl: string}
+}
+export const getCaptchaUrlActionCreator = (captchaUrl:string):getCaptchaUrlActionCreatorType => ({
     type: SET_CAPTCHA_URL,
     payload: {captchaUrl}
 })
@@ -49,7 +64,7 @@ export const checkLoginThunkCreator = () => //thunk creator
         }
     }
 
-export const loginThunkCreator = (email, password, rememberMe,captcha) =>
+export const loginThunkCreator = (email: string, password: string, rememberMe:boolean,captcha:string) =>
     async (dispatch) => {
         let data = await authAPI.login(email, password, rememberMe,captcha)
         if (data.resultCode === 0) {

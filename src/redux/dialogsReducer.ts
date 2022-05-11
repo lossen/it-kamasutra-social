@@ -1,17 +1,25 @@
 import {dialogsAPI} from "../api";
 
 const SEND_MESSAGE = "SEND_MESSAGE";
-
 let initialState = {
-    messages: [],
+    messages: [] as Array<MessageType>,
     dialogs: [
         {id: 1, name: "Anechka"},
         {id: 2, name: "Maxim"},
         {id: 3, name: "Reginald"},
-    ],
+    ] as Array<DialogType>,
 };
+type initialStateType = typeof initialState;
+type DialogType = {
+    id: number,
+    name: string
+}
+type MessageType = {
+    id: number,
+    message: string
+}
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action):initialStateType => {
     switch (action.type){
         case SEND_MESSAGE:
             return {
@@ -22,7 +30,9 @@ const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export const sendMessage = (newMessage) => ({type: SEND_MESSAGE, newMessage})
+type sendMessageActionType = {type: typeof SEND_MESSAGE, newMessage: string}
+
+export const sendMessage = (newMessage:string):sendMessageActionType => ({type: SEND_MESSAGE, newMessage})
 
 export const sendMessageThunkCreator = (body) =>
     (dispatch) => {

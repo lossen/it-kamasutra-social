@@ -2,11 +2,17 @@ import {checkLoginThunkCreator} from "./authReducer";
 
 const INITIALISED_SUCCESSFUL = "INITIALISED_SUCCESSFUL";
 
-let initialState = {
+export type InitialStateType = {
+    initialised: boolean
+}
+let initialState: InitialStateType = {
     initialised: false,
 }
 
-const appReducer = (state = initialState, action) => {
+type InitialisedSuccessfulActionType = {
+    type: typeof INITIALISED_SUCCESSFUL
+}
+const appReducer = (state = initialState, action:any):InitialStateType => {
     switch (action.type) {
         case INITIALISED_SUCCESSFUL:
             return {
@@ -19,8 +25,8 @@ const appReducer = (state = initialState, action) => {
 }
 //action creators
 
-export const initialisedSuccessful = () => ({
-    type: INITIALISED_SUCCESSFUL
+export const initialisedSuccessful = ():InitialisedSuccessfulActionType => ({
+    type: INITIALISED_SUCCESSFUL,
 })
 
 //action creators end

@@ -1,9 +1,22 @@
 import React from "react";
 import User from "./User/User";
 import Pagination from "../common/Pagination/Pagination";
+import {UserType} from "../../types/types";
 
+type PropsType = {
+    totalUsersCount: number,
+    pageSize: number,
+    currentPage: number,
+    users: Array<UserType>,
 
-const Users = (props) => {
+    setCurrentPage: (page:number) => void,
+    getUsers: (page:number) => void,
+    followUser: (user_id:number) => void,
+    unfollowUser: (user_id:number) => void,
+    followingProgressQueue: Array<number>,
+}
+
+const Users:React.FC<PropsType> = (props) => {
     return (
         <div>
             <Pagination totalItemsCount={props.totalUsersCount}

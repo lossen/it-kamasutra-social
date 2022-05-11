@@ -1,7 +1,18 @@
-import React, {useState} from "react";
-import classes from "./Pagination.module.css";
+import  {useState} from "react";
+import classes from './Pagination.module.css';
+import React from "react";
 
-const Pagination = ({portionSize, ...props}) => {
+type PropsType = {
+    portionSize?: number,
+    totalItemsCount: number,
+    pageSize: number,
+    currentPage: number,
+
+    setCurrentPage: (page:number) => void,
+    getList: (page:number) => void,
+}
+
+const Pagination:React.FC<PropsType> = ({portionSize =10, ...props}) => {
     let pagesCount = Math.ceil(props.totalItemsCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
