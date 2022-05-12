@@ -136,7 +136,7 @@ export const toggleFollowingIsFetching = (isFetching:boolean, userId:number):tog
 //end action creators
 
 //thunk creators
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 export type DispatchType = Dispatch<ActionsTypes>
 export const getUsersThunkCreator = (page:number, pageSize:number):ThunkType =>
     async (dispatch) => { //thunk function

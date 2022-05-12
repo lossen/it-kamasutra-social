@@ -2,6 +2,8 @@ import {profileAPI} from "../api";
 import {APP_NAME} from "../commonConsts";
 import {stopSubmit} from "redux-form";
 import {PhotosType, PostType, ProfileType} from "../types/types";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./reduxStore";
 
 const ADD_POST = `${APP_NAME}/profile/ADD_POST`,
     SET_USER_PROFILE = `${APP_NAME}/profile/SET_USER_PROFILE`,
@@ -49,6 +51,8 @@ const profileReducer = (state = initialState, action):InitialStateType => {
     }
 }
 //action creators
+type ActionsTypes = addPostActionType | deletePostActionType | saveAvatarActionType | setUserProfileActionType | setProfileStatusActionType;
+
 type addPostActionType = {type: typeof ADD_POST, body: string}
 export const addPost = (body):addPostActionType => ({type: ADD_POST, body})
 
@@ -75,19 +79,21 @@ export const setProfileStatus = (profileStatus:string):setProfileStatusActionTyp
 //action creators end
 
 //thunk creators
-export const getProfileDataThunkCreator = (userId:number) =>
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>;
+
+export const getProfileDataThunkCreator = (userId:number):ThunkType =>
     async (dispatch) => {
         let data = await profileAPI.getProfileData(userId)
         dispatch(setUserProfile(data))
     }
 
-export const getProfileStatusThunkCreator = (userId:number) =>
+export const getProfileStatusThunkCreator = (userId:number):ThunkType =>
     async (dispatch) => {
         let data = await profileAPI.getProfileStatus(userId)
         dispatch(setProfileStatus(data))
     }
 
-export const setProfileStatusThunkCreator = (status:string) =>
+export const setProfileStatusThunkCreator = (status:string):ThunkType =>
     async (dispatch) => {
         let res = await profileAPI.setProfileStatus(status)
         if (res.data.resultCode === 0) {
@@ -95,7 +101,7 @@ export const setProfileStatusThunkCreator = (status:string) =>
         }
     }
 
-export const addPostThunkCreator = (newPostText:string) =>
+export const addPostThunkCreator = (newPostText:string):ThunkType =>
     async (dispatch) => {
         let data = await profileAPI.addNewPost(newPostText)
         if (data.resultCode === 0) {
@@ -103,7 +109,7 @@ export const addPostThunkCreator = (newPostText:string) =>
         }
     }
 
-export const saveAvatar = (file:File) =>
+export const saveAvatar = (file:File):ThunkType =>
     async (dispatch) => {
         let res = await profileAPI.sendPhoto(file)
         if (res.resultCode === 0) {
@@ -111,7 +117,7 @@ export const saveAvatar = (file:File) =>
         }
     }
 
-export const saveProfileData = (data:ProfileType) =>
+export const saveProfileData = (data:ProfileType):ThunkType =>
     async (dispatch,getState) => {
         let res = await profileAPI.saveProfile(data)
         if (res.resultCode === 0) {
