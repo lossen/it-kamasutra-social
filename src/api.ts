@@ -1,4 +1,5 @@
-import * as axios from "axios";
+import axios from "axios";
+import {PostType, ProfileType} from "./types/types";
 const API_URL = 'https://social-network.samuraijs.com/api/1.0/';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -15,31 +16,32 @@ export const usersAPI = {
         return instance.get(`users?page=${page}&count=${pageSize}`)
             .then(response => response.data)
     },
-    followUser(user_id){
+    followUser(user_id:number){
         return instance.post(`follow/${user_id}`)
             .then(response => response.data)
     },
-    unfollowUser(user_id){
+    unfollowUser(user_id:number){
         return instance.delete(`follow/${user_id}`)
             .then(response => response.data)
     },
 }
 
 export const profileAPI = {
-    getProfileData(userId){
+    getProfileData(userId:number){
         return instance.get(`profile/${userId}`)
             .then(response => response.data)
     },
-    getProfileStatus(userId){
+    getProfileStatus(userId:number){
         return instance.get(`/profile/status/${userId}`).then(response => response.data)
     },
-    setProfileStatus(status){
+    setProfileStatus(status:string){
         return instance.put(`/profile/status`, {status})
     },
-    addNewPost(post){
-        return instance.post(`/profile/posts`, {post})
+    addNewPost(newPostText:string){
+        return instance.post(`/profile/posts`, {post:newPostText})
+            .then(response => response.data)
     },
-    sendPhoto(image){
+    sendPhoto(image:File){
         const formData = new FormData();
         formData.append("image",image)
         return instance.put(`/profile/photo`, formData, {
@@ -48,7 +50,7 @@ export const profileAPI = {
             }
         }).then(response => response.data)
     },
-    saveProfile(data){
+    saveProfile(data:ProfileType){
         return instance.put(`/profile`, {...data})
             .then(response => response.data)
     },
@@ -62,7 +64,7 @@ export const securityAPI = {
 }
 
 export const dialogsAPI = {
-    sendNewMessage(body){
+    sendNewMessage(body:string){
         return instance.post(`dialogs/${2}/messages`,{body},{
 
         }).then(response => response.data)
@@ -70,16 +72,46 @@ export const dialogsAPI = {
 
 }
 
+type CheckLoginResponseType = {
+    data: {
+        id: number
+        email: string
+        login: string
+    }
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+
+type LoginResponseType = {
+    data: {
+        userId: number
+    }
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+
+type LogoutResponseType = {
+    data: {}
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10,
+}
+
 export const authAPI = {
     checkLogin(){
-        return instance.get(`auth/me/`).then(response => response.data)
+        return instance.get<CheckLoginResponseType>(`auth/me/`).then(response => response.data)
     },
-    login(email, password,rememberMe = false, captcha) {
-        return instance.post('/auth/login', {
+    login(email:string, password:string,rememberMe = false, captcha: null | string = null) {
+        return instance.post<LoginResponseType>('/auth/login', {
             email, password,rememberMe,captcha
         }).then(response => response.data)
     },
     logout() {
-        return instance.delete('/auth/login').then(response => response.data)
+        return instance.delete<LogoutResponseType>('/auth/login').then(response => response.data)
     },
 }

@@ -1,4 +1,4 @@
-import {authAPI, securityAPI} from "../api";
+import {authAPI, ResultCodesEnum, securityAPI} from "../api";
 import {stopSubmit} from "redux-form";
 import {APP_NAME} from "../commonConsts";
 import {ThunkAction} from "redux-thunk";
@@ -63,7 +63,7 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 export const checkLoginThunkCreator = ():ThunkType => //thunk creator
     async (dispatch) => { //thunk function
         let data = await authAPI.checkLogin()
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResultCodesEnum.Success) {
             let {id, email, login} = data.data;
             let isAuth = true;
             dispatch(setAuthUserData(id, email, login, isAuth))
@@ -73,10 +73,10 @@ export const checkLoginThunkCreator = ():ThunkType => //thunk creator
 export const loginThunkCreator = (email: string, password: string, rememberMe:boolean,captcha:string):ThunkType =>
     async (dispatch) => {
         let data = await authAPI.login(email, password, rememberMe,captcha)
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResultCodesEnum.Success) {
             dispatch(checkLoginThunkCreator())
         } else {
-            if (data.resultCode === 10){
+            if (data.resultCode === ResultCodesEnum.CaptchaIsRequired){
                 dispatch(getCaptchaUrl())
             }
             let errorMessage = data.messages.length > 0 ? data.messages[0] : 'Server error'
@@ -87,7 +87,7 @@ export const loginThunkCreator = (email: string, password: string, rememberMe:bo
 export const logoutThunkCreator = ():ThunkType =>
     async (dispatch) => {
         let data = await authAPI.logout()
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResultCodesEnum.Success) {
             let {userId, email, login, isAuth} = initialState;
             dispatch(setAuthUserData(userId, email, login, isAuth))
         }
