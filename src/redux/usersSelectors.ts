@@ -2,7 +2,7 @@
 
 import {AppStateType} from "./reduxStore";
 
-export const getUsers = (state:AppStateType) => {
+export const getUsersSelector = (state:AppStateType) => {
     return state.usersPage.users;
 }
 // export const getUsersReselector = createSelector(getUsers,(users) => {

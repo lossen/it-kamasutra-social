@@ -80,6 +80,7 @@ export const loginThunkCreator = (email: string, password: string, rememberMe:bo
                 dispatch(getCaptchaUrl())
             }
             let errorMessage = data.messages.length > 0 ? data.messages[0] : 'Server error'
+            // @ts-ignore
             dispatch(stopSubmit("login", {_error: errorMessage}))
         }
     }

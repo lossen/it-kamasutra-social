@@ -14,7 +14,6 @@ export const Input = ({input, ...props}) => {
     return (<FormControl {...props}>
             <input type="text" {...input} {...props}/>
         </FormControl>
-
     )
 }
 

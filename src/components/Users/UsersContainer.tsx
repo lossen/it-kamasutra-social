@@ -1,9 +1,9 @@
 import {connect} from "react-redux";
 import {
-    followUserThunkCreator,
-    getUsersThunkCreator,
+    followUser,
+    getUsers,
     setCurrentPage,
-    unfollowUserThunkCreator
+    unfollowUser
 } from "../../redux/usersReducer";
 import React from "react";
 import Users from "./Users";
@@ -15,7 +15,7 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
-    getUsers
+    getUsersSelector
 } from "../../redux/usersSelectors";
 import {UserType} from "../../types/types";
 import {AppStateType} from "../../redux/reduxStore";
@@ -33,9 +33,9 @@ type MapStatePropsType = {
 }
 type MapDispatchPropsType = {
     setCurrentPage: (currentPage:number) => void
-    getUsersThunkCreator: (page: number, pageSize: number) => void
-    followUserThunkCreator: (user_id: number) => void
-    unfollowUserThunkCreator: (user_id: number) => void
+    getUsers: (page: number, pageSize: number) => void
+    followUser: (user_id: number) => void
+    unfollowUser: (user_id: number) => void
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnProps;
@@ -46,15 +46,15 @@ class UsersContainer extends React.Component<PropsType> {
     }
 
     onGetUsers = (page:number) => {
-        this.props.getUsersThunkCreator(page,this.props.pageSize)
+        this.props.getUsers(page,this.props.pageSize)
     }
 
     onFollowUser = (user_id:number) => {
-        this.props.followUserThunkCreator(user_id)
+        this.props.followUser(user_id)
     }
 
     onUnfollowUser = (user_id:number) => {
-        this.props.unfollowUserThunkCreator(user_id)
+        this.props.unfollowUser(user_id)
     }
 
     render() {
@@ -75,7 +75,7 @@ class UsersContainer extends React.Component<PropsType> {
 }
 
 const mapStateToProps = (state:AppStateType):MapStatePropsType => ({
-    users: getUsers(state),
+    users: getUsersSelector(state),
     currentPage: getCurrentPage(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),
@@ -87,8 +87,8 @@ export default compose(
     connect<MapStatePropsType,MapDispatchPropsType,AppStateType>(mapStateToProps,
         {
             setCurrentPage,
-            getUsersThunkCreator,
-            followUserThunkCreator,
-            unfollowUserThunkCreator
+            getUsers,
+            followUser,
+            unfollowUser
         }),
 )(UsersContainer);

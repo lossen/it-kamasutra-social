@@ -1,16 +1,15 @@
 import React from "react";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../../common/Forms/FormControls";
 import classes from "../../../Login/Login.module.css";
 import {ProfileType} from "../../../../types/types";
 
-type PropsType = {
+
+type TOwnProps = {
     profile: ProfileType
-    error: any
-    handleSubmit: () => void
 }
 
-const ProfileDataForm:React.FC<PropsType> = ({error,...props}) => {
+const ProfileDataForm:React.FC<InjectedFormProps<ProfileType,TOwnProps>> = ({error,...props}) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
             <b>Full name:</b>
@@ -29,6 +28,7 @@ const ProfileDataForm:React.FC<PropsType> = ({error,...props}) => {
             <Field name={"aboutMe"} type="text" placeholder="aboutMe" component={Textarea}/>
         </div>
         <div>
+            {/*// @ts-ignore*/}
             <h5>Contacts: {Object.keys(props.profile.contacts)
                 .map((key) => {
                         return <div>
@@ -48,7 +48,7 @@ const ProfileDataForm:React.FC<PropsType> = ({error,...props}) => {
     </form>
 }
 
-let ReduxFormEditProfile = reduxForm({
+let ReduxFormEditProfile = reduxForm<ProfileType, TOwnProps>({
     form: "profileDataForm"
 })(ProfileDataForm)
 

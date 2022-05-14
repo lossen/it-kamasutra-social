@@ -22,7 +22,7 @@ const ProfileInfo:React.FC<PropsType> = ({profile,profileStatus,updateProfileSta
     let [editMode, setEditMode] = useState(false);
     if(!profile) return <Loader isFetching={true}/>
 
-    const onSubmit = (formData) => {
+    const onSubmit = (formData:ProfileType) => {
         props.saveProfileData(formData)
             .then(() => setEditMode(false))
             .catch((err) => console.log(err))

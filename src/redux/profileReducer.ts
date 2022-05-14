@@ -123,6 +123,7 @@ export const saveProfileData = (data:ProfileType):ThunkType =>
         if (res.resultCode === 0) {
             return dispatch(getProfileDataThunkCreator(getState().auth.userId))
         }else {
+            // @ts-ignore
             dispatch(stopSubmit("profileDataForm", {"contacts": {"_error": res.messages[0]}}))
             return Promise.reject(res.messages[0])
         }
