@@ -3,11 +3,11 @@ import classes from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
 import {Field, reduxForm} from "redux-form";
-import {DialogType, MessageType} from "../../types/types";
+import {TDialog, TMessage} from "../../types/types";
 
 type PropsType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
+    dialogs: Array<TDialog>
+    messages: Array<TMessage>
     sendMessageThunkCreator: (message:string) => void
 
 }

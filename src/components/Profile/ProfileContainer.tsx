@@ -9,17 +9,17 @@ import {
 import {withRouter} from "../hocs/WithRouter/WithRouter";
 import withRedirect from "../hocs/withAuthRedirect/withAuthRedirect";
 import {compose} from "redux";
-import {ProfileType} from "../../types/types";
+import {TProfile} from "../../types/types";
 import {AppStateType} from "../../redux/reduxStore";
 
 type TStateProps = {
-    profile: ProfileType
+    profile: TProfile
     profileStatus: string
     userId: number
 }
 
 type TDispatchProps = {
-    saveProfileData: (formData:ProfileType) => Promise<any>
+    saveProfileData: (formData:TProfile) => Promise<any>
     saveAvatar: (file:File) => void
     getProfileDataThunkCreator: (userId:number) => void
     getProfileStatusThunkCreator: (userId:number) => void

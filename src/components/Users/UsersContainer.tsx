@@ -17,14 +17,14 @@ import {
     getTotalUsersCount,
     getUsersSelector
 } from "../../redux/usersSelectors";
-import {UserType} from "../../types/types";
+import {TUser} from "../../types/types";
 import {AppStateType} from "../../redux/reduxStore";
 
 type OwnProps = {
 
 }
 type MapStatePropsType = {
-    users: Array<UserType>
+    users: Array<TUser>
     currentPage: number
     pageSize: number
     totalUsersCount:number

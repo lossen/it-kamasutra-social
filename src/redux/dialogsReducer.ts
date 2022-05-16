@@ -1,9 +1,9 @@
-import {dialogsAPI} from "../api";
-import {MessageType} from "../types/types";
+import {TMessage} from "../types/types";
+import {dialogsAPI} from "../api/dialogsAPI";
 
 const SEND_MESSAGE = "SEND_MESSAGE";
 let initialState = {
-    messages: [] as Array<MessageType>,
+    messages: [] as Array<TMessage>,
     dialogs: [
         {id: 1, name: "Anechka"},
         {id: 2, name: "Maxim"},

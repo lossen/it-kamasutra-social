@@ -1,9 +1,9 @@
-import {profileAPI} from "../api";
 import {APP_NAME} from "../commonConsts";
 import {stopSubmit} from "redux-form";
-import {PhotosType, PostType, ProfileType} from "../types/types";
+import {TPhotos, TPost, TProfile} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
+import {profileAPI} from "../api/profileAPI";
 
 const ADD_POST = `${APP_NAME}/profile/ADD_POST`,
     SET_USER_PROFILE = `${APP_NAME}/profile/SET_USER_PROFILE`,
@@ -14,8 +14,8 @@ const ADD_POST = `${APP_NAME}/profile/ADD_POST`,
 type InitialStateType = typeof initialState;
 
 let initialState = {
-    posts: [] as Array<PostType> | [],
-    profile: null as null | ProfileType,
+    posts: [] as Array<TPost> | [],
+    profile: null as null | TProfile,
     profileStatus: ""
 }
 
@@ -59,10 +59,10 @@ export const addPost = (body):addPostActionType => ({type: ADD_POST, body})
 type deletePostActionType = {type: typeof DELETE_POST, id:number}
 export const deletePost = (id):deletePostActionType => ({type: DELETE_POST, id})
 
-type saveAvatarActionType = {type: typeof SAVE_PHOTOS, photos:PhotosType}
+type saveAvatarActionType = {type: typeof SAVE_PHOTOS, photos:TPhotos}
 export const saveAvatarActionCreator = (photos):saveAvatarActionType => ({type: SAVE_PHOTOS, photos})
 
-type setUserProfileActionType = { type: typeof SET_USER_PROFILE, profile: ProfileType }
+type setUserProfileActionType = { type: typeof SET_USER_PROFILE, profile: TProfile }
 export const setUserProfile = (profile):setUserProfileActionType => ({
     type: SET_USER_PROFILE,
     profile
@@ -117,7 +117,7 @@ export const saveAvatar = (file:File):ThunkType =>
         }
     }
 
-export const saveProfileData = (data:ProfileType):ThunkType =>
+export const saveProfileData = (data:TProfile):ThunkType =>
     async (dispatch,getState) => {
         let res = await profileAPI.saveProfile(data)
         if (res.resultCode === 0) {

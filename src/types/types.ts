@@ -1,13 +1,13 @@
-export type PostType = {
+export type TPost = {
     id: number,
     message: string,
     likesCount: number,
 };
-export type PhotosType = {
+export type TPhotos = {
     small: string | null,
     large: string | null,
 };
-export type ContactsType = {
+export type TContacts = {
     github: string,
     vk: string,
     facebook: string,
@@ -17,28 +17,28 @@ export type ContactsType = {
     youtube: string,
     mainLink: string,
 };
-export  type ProfileType = {
+export  type TProfile = {
     userId: number,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
     fullName: string,
-    contacts: ContactsType,
-    photos: PhotosType,
+    contacts: TContacts,
+    photos: TPhotos,
     aboutMe: string,
 };
-export type UserType = {
+export type TUser = {
     id: number,
     name: string,
     status: string,
-    photos: PhotosType,
+    photos: TPhotos,
     followed: boolean,
 }
-export type DialogType = {
+export type TDialog = {
     id: number,
     name: string,
 }
 
-export type MessageType = {
+export type TMessage = {
     id: number,
     message: string
 }

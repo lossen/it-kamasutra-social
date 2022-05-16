@@ -2,14 +2,14 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../../common/Forms/FormControls";
 import classes from "../../../Login/Login.module.css";
-import {ProfileType} from "../../../../types/types";
+import {TProfile} from "../../../../types/types";
 
 
 type TOwnProps = {
-    profile: ProfileType
+    profile: TProfile
 }
 
-const ProfileDataForm:React.FC<InjectedFormProps<ProfileType,TOwnProps>> = ({error,...props}) => {
+const ProfileDataForm:React.FC<InjectedFormProps<TProfile,TOwnProps>> = ({error,...props}) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
             <b>Full name:</b>
@@ -48,7 +48,7 @@ const ProfileDataForm:React.FC<InjectedFormProps<ProfileType,TOwnProps>> = ({err
     </form>
 }
 
-let ReduxFormEditProfile = reduxForm<ProfileType, TOwnProps>({
+let ReduxFormEditProfile = reduxForm<TProfile, TOwnProps>({
     form: "profileDataForm"
 })(ProfileDataForm)
 

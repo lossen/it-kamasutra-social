@@ -3,13 +3,13 @@ import classes from "./User.module.css";
 // @ts-ignore
 import Avatar from '../../../images/avatar.placeholder.png'
 import {NavLink} from "react-router-dom";
-import {PhotosType} from "../../../types/types";
+import {TPhotos} from "../../../types/types";
 
 type PropsType = {
     id: number
     followingProgressQueue: Array<number>
     followed: boolean
-    photos: PhotosType
+    photos: TPhotos
     name: string
     status: string
 

@@ -1,10 +1,10 @@
-import {usersAPI} from "../api";
 import {updateObjectsInArray} from "../utils/helpers";
 import {APP_NAME} from "../commonConsts";
-import {UserType} from "../types/types";
+import {TUser} from "../types/types";
 import {AppStateType, InferActionsTypes} from "./reduxStore";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
+import {usersAPI} from "../api/usersAPI";
 
 const FOLLOW_USER = `${APP_NAME}/users/FOLLOW_USER` as const,
     UNFOLLOW_USER = `${APP_NAME}/users/UNFOLLOW_USER` as const,
@@ -17,7 +17,7 @@ const FOLLOW_USER = `${APP_NAME}/users/FOLLOW_USER` as const,
 type initialStateType = typeof initialState;
 
 let initialState = {
-    users: [] as Array<UserType> | [],
+    users: [] as Array<TUser> | [],
     pageSize: 100,
     totalUsersCount: 21,
     currentPage: 1,
@@ -80,7 +80,7 @@ export const actionCreators = {
         type: UNFOLLOW_USER,
         user_id
     }),
-    setUsers: (users: Array<UserType>) => ({
+    setUsers: (users: Array<TUser>) => ({
         type: SET_USERS,
         users
     }),

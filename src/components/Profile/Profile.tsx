@@ -1,15 +1,15 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ProfileType} from "../../types/types";
+import {TProfile} from "../../types/types";
 
 type PropsType = {
-    profile: ProfileType
+    profile: TProfile
     profileStatus: string
     isOwner: boolean
 
     updateProfileStatus: (status:string) => void
-    saveProfileData: (formData:ProfileType) => Promise<any>
+    saveProfileData: (formData:TProfile) => Promise<any>
     saveAvatar: (file:File) => void
 }
 

@@ -1,13 +1,13 @@
 import React from "react";
 import User from "./User/User";
 import Pagination from "../common/Pagination/Pagination";
-import {UserType} from "../../types/types";
+import {TUser} from "../../types/types";
 
 type PropsType = {
     totalUsersCount: number,
     pageSize: number,
     currentPage: number,
-    users: Array<UserType>,
+    users: Array<TUser>,
 
     setCurrentPage: (page:number) => void,
     getUsers: (page:number) => void,
@@ -27,12 +27,9 @@ const Users:React.FC<PropsType> = (props) => {
                         portionSize={10}/>
             {props.users && props.users.map(user => {
                 return (
-                    <div>
-
-                        <User key={user.id} {...user}
-                              followUser={props.followUser} unfollowUser={props.unfollowUser}
-                              followingProgressQueue={props.followingProgressQueue}/>
-                    </div>
+                    <User key={user.id} {...user}
+                          followUser={props.followUser} unfollowUser={props.unfollowUser}
+                          followingProgressQueue={props.followingProgressQueue}/>
                 )
             })}
         </div>

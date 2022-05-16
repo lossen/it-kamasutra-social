@@ -7,22 +7,22 @@ import Avatar from '../../../images/avatar.placeholder.png'
 import AvatarUploader from "./AvatarUploader/AvatarUploader";
 import ProfileData from "./ProfileData/ProfileData";
 import ReduxFormEditProfile from "./ProfileData/ProfileDataForm";
-import {ProfileType} from "../../../types/types";
+import {TProfile} from "../../../types/types";
 
 type PropsType = {
-    profile: ProfileType
+    profile: TProfile
     profileStatus: string
     isOwner: boolean
     updateProfileStatus: (status:string) => void
     saveAvatar: (file:File) => void
-    saveProfileData: (formData:ProfileType) => Promise<any>
+    saveProfileData: (formData:TProfile) => Promise<any>
 }
 
 const ProfileInfo:React.FC<PropsType> = ({profile,profileStatus,updateProfileStatus,...props}) => {
     let [editMode, setEditMode] = useState(false);
     if(!profile) return <Loader isFetching={true}/>
 
-    const onSubmit = (formData:ProfileType) => {
+    const onSubmit = (formData:TProfile) => {
         props.saveProfileData(formData)
             .then(() => setEditMode(false))
             .catch((err) => console.log(err))
