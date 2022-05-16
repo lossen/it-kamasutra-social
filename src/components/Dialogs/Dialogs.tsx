@@ -20,7 +20,7 @@ const Dialogs:React.FC<PropsType> = (props) => {
     return(
         <div className={classes.dialogs}>
             <div className="items">
-                {props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)}
+                {props.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)}
             </div>
             <div className={classes.messages}>
                 <div>

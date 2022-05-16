@@ -1,9 +1,8 @@
 import {updateObjectsInArray} from "../utils/helpers";
 import {APP_NAME} from "../commonConsts";
 import {TUser} from "../types/types";
-import {AppStateType, InferActionsTypes} from "./reduxStore";
+import {InferActionsTypes, TBaseThunk} from "./reduxStore";
 import {Dispatch} from "redux";
-import {ThunkAction} from "redux-thunk";
 import {usersAPI} from "../api/usersAPI";
 
 const FOLLOW_USER = `${APP_NAME}/users/FOLLOW_USER` as const,
@@ -14,7 +13,7 @@ const FOLLOW_USER = `${APP_NAME}/users/FOLLOW_USER` as const,
     SET_FETCHING = `${APP_NAME}/users/SET_FETCHING` as const,
     SET_FOLLOWING_PROGRESS_QUEUE = `${APP_NAME}/users/SET_FOLLOWING_PROGRESS_QUEUE` as const;
 
-type initialStateType = typeof initialState;
+type TInitialState = typeof initialState;
 
 let initialState = {
     users: [] as Array<TUser> | [],
@@ -25,7 +24,7 @@ let initialState = {
     followingProgressQueue: [] as Array<number>, // Array of users ids
 };
 
-const usersReducer = (state = initialState, action:ActionsTypes):initialStateType => {
+const usersReducer = (state = initialState, action: ActionsTypes): TInitialState => {
     switch (action.type) {
         case FOLLOW_USER:
             return {
@@ -68,9 +67,7 @@ const usersReducer = (state = initialState, action:ActionsTypes):initialStateTyp
             return state;
     }
 }
-//action creators
 type ActionsTypes = InferActionsTypes<typeof actionCreators>
-
 export const actionCreators = {
     followUser: (user_id: number) => ({
         type: FOLLOW_USER,
@@ -89,10 +86,9 @@ export const actionCreators = {
         currentPage
     }),
     setTotalUsersCount: (totalUsersCount: number) => ({
-            type: SET_TOTAL_USERS_COUNT,
-            totalUsersCount
-        }
-    ),
+        type: SET_TOTAL_USERS_COUNT,
+        totalUsersCount
+    }),
     setFetching: (isFetching: boolean) => ({
         type: SET_FETCHING,
         isFetching
@@ -105,13 +101,8 @@ export const actionCreators = {
 
 }
 
-//end action creators
-
 //thunk creators
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
-export type DispatchType = Dispatch<ActionsTypes>
-
-export const getUsers = (page:number, pageSize:number):ThunkType =>
+export const getUsers = (page: number, pageSize: number): TThunk =>
     async (dispatch) => { //thunk function
         dispatch(actionCreators.setFetching(true))
         let data = await usersAPI.getUsers(page, pageSize);
@@ -128,19 +119,22 @@ const _followUnfollowFlow = async (dispatch: DispatchType, user_id: number, apiM
         dispatch(actionCreators.toggleFollowingIsFetching(false, user_id))
     }
 }
-export const followUser = (user_id):ThunkType =>//thunk creator
+export const followUser = (user_id): TThunk =>//thunk creator
     async (dispatch) => {//thunk function
         await _followUnfollowFlow(dispatch, user_id, usersAPI.followUser, actionCreators.followUser)
     }
 
-export const unfollowUser = (user_id):ThunkType =>//thunk creator
+export const unfollowUser = (user_id): TThunk =>//thunk creator
     async (dispatch) => {//thunk function
         await _followUnfollowFlow(dispatch, user_id, usersAPI.unfollowUser, actionCreators.unfollowUser)
     }
 
-export const setCurrentPage = (currentPage:number):ThunkType => //thunk creator
+export const setCurrentPage = (currentPage: number): TThunk => //thunk creator
     async (dispatch) => { //thunk function
         dispatch(actionCreators.setCurrentPage(currentPage))
     }
 //thunk functions end
 export default usersReducer;
+
+type TThunk = TBaseThunk<ActionsTypes>;
+export type DispatchType = Dispatch<ActionsTypes>

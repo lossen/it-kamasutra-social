@@ -3,7 +3,9 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
     getProfileDataThunkCreator,
-    getProfileStatusThunkCreator, saveAvatar, saveProfileData,
+    getProfileStatusThunkCreator,
+    saveAvatar,
+    saveProfileData,
     setProfileStatusThunkCreator,
 } from "../../redux/profileReducer";
 import {withRouter} from "../hocs/WithRouter/WithRouter";

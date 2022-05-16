@@ -6,7 +6,6 @@ import classes from "./Login.module.css";
 import {TLoginValues, TOwnProps} from "./LoginContainer";
 
 
-
 const Login: React.FC<InjectedFormProps<TLoginValues, TOwnProps> & TOwnProps> =
     ({handleSubmit, error, captchaUrl, ...props}) => {
         return (

@@ -1,9 +1,11 @@
 import {TMessage} from "../types/types";
 import {dialogsAPI} from "../api/dialogsAPI";
+import {InferActionsTypes, TBaseThunk} from "./reduxStore";
+import {APP_NAME} from "../commonConsts";
 
-const SEND_MESSAGE = "SEND_MESSAGE";
+const SEND_MESSAGE = `${APP_NAME}/dialogs/SEND_MESSAGE` as const;
 let initialState = {
-    messages: [] as Array<TMessage>,
+    messages: [] as Array<TMessage> | [],
     dialogs: [
         {id: 1, name: "Anechka"},
         {id: 2, name: "Maxim"},
@@ -16,28 +18,26 @@ type DialogType = {
     name: string
 }
 
-const dialogsReducer = (state = initialState, action):initialStateType => {
+const dialogsReducer = (state = initialState, action:ActionsTypes):initialStateType => {
     switch (action.type){
         case SEND_MESSAGE:
             return {
                 ...state,
-                messages: [...state.messages, action.newMessage],
+                messages: [...state.messages, {id: state.messages.length++ , message: action.newMessage}],
             }
         default: return state;
     }
 }
-
-type sendMessageActionType = {type: typeof SEND_MESSAGE, newMessage: string}
-
-export const sendMessage = (newMessage:string):sendMessageActionType => ({type: SEND_MESSAGE, newMessage})
-
-export const sendMessageThunkCreator = (body) =>
-    (dispatch) => {
-        dialogsAPI.sendNewMessage(body)
-            .then(res => {
-                if(res.resultCode === 0){
-                    dispatch(sendMessage(res.data.message))
-                }
-            })
+type ActionsTypes = InferActionsTypes<typeof actionCreators>
+const actionCreators = {
+    sendMessage: (newMessage:string) => ({type: SEND_MESSAGE, newMessage})
+}
+export const sendMessageThunkCreator = (body:string):TThunk =>
+    async (dispatch) => {
+        let res = await dialogsAPI.sendNewMessage(body)
+        if(res.resultCode === 0){
+            dispatch(actionCreators.sendMessage(res.data.message))
+        }
     }
 export default dialogsReducer;
+type TThunk = TBaseThunk<ActionsTypes>

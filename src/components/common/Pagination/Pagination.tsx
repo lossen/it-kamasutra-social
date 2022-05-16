@@ -1,6 +1,5 @@
-import  {useState} from "react";
+import React, {useState} from "react";
 import classes from './Pagination.module.css';
-import React from "react";
 
 type PropsType = {
     portionSize?: number,

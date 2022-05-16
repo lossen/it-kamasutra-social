@@ -1,18 +1,15 @@
 import {checkLoginThunkCreator} from "./authReducer";
+import {APP_NAME} from "../commonConsts";
+import {InferActionsTypes, TBaseThunk} from "./reduxStore";
 
-const INITIALISED_SUCCESSFUL = "INITIALISED_SUCCESSFUL";
+const INITIALISED_SUCCESSFUL = `${APP_NAME}/app/INITIALISED_SUCCESSFUL` as const;
 
-export type InitialStateType = {
-    initialised: boolean
-}
-let initialState: InitialStateType = {
+let initialState = {
     initialised: false,
 }
+export type TInitialState =  typeof initialState
 
-type InitialisedSuccessfulActionType = {
-    type: typeof INITIALISED_SUCCESSFUL
-}
-const appReducer = (state = initialState, action:any):InitialStateType => {
+const appReducer = (state = initialState, action:any):TInitialState => {
     switch (action.type) {
         case INITIALISED_SUCCESSFUL:
             return {
@@ -23,21 +20,22 @@ const appReducer = (state = initialState, action:any):InitialStateType => {
             return state;
     }
 }
-//action creators
+type ActionsTypes = InferActionsTypes<typeof actionCreators>
 
-export const initialisedSuccessful = ():InitialisedSuccessfulActionType => ({
-    type: INITIALISED_SUCCESSFUL,
-})
-
-//action creators end
+const actionCreators = {
+    initialisedSuccessful: () => ({
+        type: INITIALISED_SUCCESSFUL,
+    })
+}
 
 //thunk creators
-export const initialisedSuccessfulThunkCreator = () =>
+export const initialisedSuccessfulThunkCreator = ():TThunk =>
     async (dispatch) => {
         await dispatch(checkLoginThunkCreator())
-        dispatch(initialisedSuccessful())
+        dispatch(actionCreators.initialisedSuccessful())
     }
 
 
 //thunk creators end
 export default appReducer;
+type TThunk = TBaseThunk<ActionsTypes>;

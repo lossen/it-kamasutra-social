@@ -1,4 +1,5 @@
 import {instance} from "./api";
+
 type TCaptchaUrl = { url: string }
 export const securityAPI = {
     getCaptchaUrl() {
