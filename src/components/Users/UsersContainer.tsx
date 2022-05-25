@@ -78,7 +78,7 @@ const mapStateToProps = (state:AppStateType):MapStatePropsType => ({
     followingProgressQueue: getFollowingProgressQueue(state),
 })
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapStatePropsType,MapDispatchPropsType,AppStateType>(mapStateToProps,
         {
             setCurrentPage,

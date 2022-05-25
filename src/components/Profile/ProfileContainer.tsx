@@ -63,7 +63,7 @@ let mapStateToProps = (state:AppStateType):TStateProps => ({
     userId: state.auth.userId,
 })
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<TStateProps,TDispatchProps,TOwnProps>(mapStateToProps, {
         getProfileDataThunkCreator,
         getProfileStatusThunkCreator,
@@ -74,5 +74,4 @@ export default compose(
     }),
     withRedirect,
     withRouter
-    // @ts-ignore
 )(ProfileContainer);

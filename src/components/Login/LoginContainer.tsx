@@ -10,16 +10,12 @@ let ReduxFormLogin = reduxForm<TLoginValues,TOwnProps>({
     form: "login"
 })(Login)
 
-type TStateProps = {
-    isAuth: boolean
-    captchaUrl: string
-}
+type TStateProps = ReturnType<typeof mapStateToProps>
 
 type TDispatchProps = {
     loginThunkCreator: (email: string, password: string, rememberMe:boolean,captcha:string) => void
 }
 export type TOwnProps = {
-    captchaUrl: string
 }
 type TProps = TStateProps & TDispatchProps & TOwnProps;
 export type TLoginValues = {
@@ -41,7 +37,7 @@ const LoginContainer: React.FC<TProps> = (props) => {
     )
 }
 
-let mapStateToProps = (state:AppStateType):TStateProps => ({
+let mapStateToProps = (state:AppStateType) => ({
     isAuth: state.auth.isAuth,
     captchaUrl: state.auth.captchaUrl
 })

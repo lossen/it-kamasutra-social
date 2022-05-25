@@ -3,11 +3,13 @@ import {Field, InjectedFormProps} from "redux-form";
 import {Input} from "../common/Forms/FormControls";
 import {required} from "../../utils/validators";
 import classes from "./Login.module.css";
-import {TLoginValues, TOwnProps} from "./LoginContainer";
+import {TLoginValues} from "./LoginContainer";
 
-
+export type TOwnProps = {
+    captchaUrl: string
+}
 const Login: React.FC<InjectedFormProps<TLoginValues, TOwnProps> & TOwnProps> =
-    ({handleSubmit, error, captchaUrl, ...props}) => {
+    ({handleSubmit, error, captchaUrl = null, ...props}) => {
         return (
             <div>
                 <h1>Login page</h1>
