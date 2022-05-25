@@ -2,8 +2,8 @@ import React from 'react';
 import classes from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
-import {Field, reduxForm} from "redux-form";
 import {TDialog, TMessage} from "../../types/types";
+import {WithReduxAddMessageForm} from "./AddMessageForm";
 
 type PropsType = {
     dialogs: Array<TDialog>
@@ -36,19 +36,4 @@ const Dialogs:React.FC<PropsType> = (props) => {
     )
 }
 
-const AddMessageForm = (props) => {
-    return(
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field name={"message"} type={"textarea"} placeholder={'Enter your message'} component={"textarea"}/>
-            </div>
-            <div>
-                <button>Send</button>
-            </div>
-        </form>
-    )
-}
-let WithReduxAddMessageForm = reduxForm({
-    form: 'sendMessage'
-})(AddMessageForm)
 export default Dialogs;
