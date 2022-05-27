@@ -15,17 +15,16 @@ type PropsType = {
     isOwner: boolean
     updateProfileStatus: (status:string) => void
     saveAvatar: (file:File) => void
-    saveProfileData: (formData:TProfile) => Promise<any>
+    saveProfileData: (formData:TProfile) => void
 }
 
 const ProfileInfo:React.FC<PropsType> = ({profile,profileStatus,updateProfileStatus,...props}) => {
     let [editMode, setEditMode] = useState(false);
     if(!profile) return <Loader isFetching={true}/>
 
-    const onSubmit = (formData:TProfile) => {
-        props.saveProfileData(formData)
-            .then(() => setEditMode(false))
-            .catch((err) => console.log(err))
+    const onSubmit = async (formData:TProfile) => {
+        await props.saveProfileData(formData)
+        setEditMode(false)
     }
 
     return (

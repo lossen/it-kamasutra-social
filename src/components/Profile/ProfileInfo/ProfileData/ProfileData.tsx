@@ -1,10 +1,6 @@
 import React from "react";
 import {TProfile} from "../../../../types/types";
 
-type PropsType = {
-    profile: TProfile
-    setEditMode: () => void
-}
 const ProfileData:React.FC<PropsType> = ({profile,setEditMode}) => {
     const handleEditMode = () => {
         setEditMode()
@@ -29,10 +25,15 @@ const ProfileData:React.FC<PropsType> = ({profile,setEditMode}) => {
     </div>
 }
 
-const Contact = ({title, value}) => {
+const Contact:React.FC<{ title: string,value:string }> = ({title, value}) => {
     return <div>
         <b>{title}:</b> {value}
     </div>
 }
 
 export default ProfileData;
+
+type PropsType = {
+    profile: TProfile
+    setEditMode: () => void
+}

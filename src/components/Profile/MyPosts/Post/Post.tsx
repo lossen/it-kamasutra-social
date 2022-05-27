@@ -1,8 +1,9 @@
 import React from 'react';
 import classes from './Post.module.css';
+import {TPost} from "../../../../types/types";
 
-const Post = (props) => {
-    let {body} = props.data;
+const Post:React.FC<TProps> = (props) => {
+    let {message,likesCount} = props.data;
     return (
         <div className={classes.item}>
             <div className={classes.avatar}>
@@ -10,11 +11,11 @@ const Post = (props) => {
             </div>
             <div className={classes.flexCol}>
                 <div className={classes.postBox}>
-                    {body}
+                    {message}
                 </div>
                 <div>
                     <button>Like </button>
-                    {props.like_counts} likes
+                    {likesCount} likes
                 </div>
             </div>
         </div>
@@ -23,3 +24,7 @@ const Post = (props) => {
 }
 
 export default Post;
+
+type TProps = {
+    data: TPost
+}

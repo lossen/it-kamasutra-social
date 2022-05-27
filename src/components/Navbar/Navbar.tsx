@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 
-const Navbar = () => {
+const Navbar:React.FC = () => {
     let linkClassname = (navData) => navData.isActive ? classes.active : classes.link;
     return (
         <nav className={classes.nav}>

@@ -27,7 +27,7 @@ const Users:React.FC<PropsType> = (props) => {
                         portionSize={10}/>
             {props.users && props.users.map(user => {
                 return (
-                    <User key={user.id} {...user}
+                    <User key={user.id} user={user}
                           followUser={props.followUser} unfollowUser={props.unfollowUser}
                           followingProgressQueue={props.followingProgressQueue}/>
                 )

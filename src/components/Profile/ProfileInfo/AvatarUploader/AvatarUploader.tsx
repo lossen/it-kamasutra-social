@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import classes from "../ProfileInfo.module.css";
 
 type PropsType = {
@@ -7,9 +7,9 @@ type PropsType = {
 }
 
 const AvatarUploader: React.FC<PropsType> = (props) => {
-    const handleChangeFile =(e) => {
+    const handleChangeFile =(e:ChangeEvent<HTMLInputElement>) => {
         let file = e.target.files[0];
-        if(e.target.files.length > 0){
+        if(e.target.files?.length > 0){
             props.saveAvatar(file)
         }
     }

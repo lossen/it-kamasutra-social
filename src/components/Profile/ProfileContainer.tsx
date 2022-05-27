@@ -13,15 +13,10 @@ import withRedirect from "../hocs/withAuthRedirect/withAuthRedirect";
 import {compose} from "redux";
 import {TProfile} from "../../types/types";
 import {AppStateType} from "../../redux/reduxStore";
-
-type TStateProps = {
-    profile: TProfile
-    profileStatus: string
-    userId: number
-}
+type TStateProps = ReturnType<typeof mapStateToProps>
 
 type TDispatchProps = {
-    saveProfileData: (formData:TProfile) => Promise<any>
+    saveProfileData: (formData:TProfile) => void
     saveAvatar: (file:File) => void
     getProfileDataThunkCreator: (userId:number) => void
     getProfileStatusThunkCreator: (userId:number) => void
@@ -31,6 +26,7 @@ type TDispatchProps = {
 type TOwnProps = {
     params: any
 }
+
 
 type PropsType = TStateProps & TDispatchProps & TOwnProps;
 
@@ -57,7 +53,7 @@ const ProfileContainer:React.FC<PropsType> = (props) => {
 }
 
 
-let mapStateToProps = (state:AppStateType):TStateProps => ({
+let mapStateToProps = (state:AppStateType) => ({
     profile: state.profilePage.profile,
     profileStatus: state.profilePage.profileStatus,
     userId: state.auth.userId,
@@ -69,7 +65,6 @@ export default compose<React.ComponentType>(
         getProfileStatusThunkCreator,
         setProfileStatusThunkCreator,
         saveAvatar,
-        // @ts-ignore
         saveProfileData
     }),
     withRedirect,

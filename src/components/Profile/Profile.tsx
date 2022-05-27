@@ -9,7 +9,7 @@ type PropsType = {
     isOwner: boolean
 
     updateProfileStatus: (status:string) => void
-    saveProfileData: (formData:TProfile) => Promise<any>
+    saveProfileData: (formData:TProfile) => void
     saveAvatar: (file:File) => void
 }
 
