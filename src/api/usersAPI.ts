@@ -1,4 +1,4 @@
-import {GetItemsResponseType, instance, TResponse} from "./api";
+import {GetItemsResponseType, instance, TAPIResponse} from "./api";
 import {TUser} from "../types/types";
 
 export const usersAPI = {
@@ -7,11 +7,11 @@ export const usersAPI = {
             .then(response => response.data)
     },
     followUser(user_id: number) {
-        return instance.post<TResponse>(`follow/${user_id}`)
+        return instance.post<TAPIResponse>(`follow/${user_id}`)
             .then(response => response.data)
     },
     unfollowUser(user_id: number) {
-        return instance.delete<TResponse>(`follow/${user_id}`)
+        return instance.delete<TAPIResponse>(`follow/${user_id}`)
             .then(response => response.data)
     },
 }

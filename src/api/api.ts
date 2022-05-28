@@ -22,7 +22,7 @@ export type GetItemsResponseType<T> = {
     totalCount: number
     error: string
 }
-export type TResponse<D = {}, RC = ResultCodesEnum> = {
+export type TAPIResponse<D = {}, RC = ResultCodesEnum> = {
     data: D,
     resultCode: RC
     messages: Array<string>

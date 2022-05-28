@@ -1,9 +1,10 @@
-import {updateObjectsInArray} from "../utils/helpers";
-import {APP_NAME} from "../commonConsts";
-import {TUser} from "../types/types";
-import {InferActionsTypes, TBaseThunk} from "./reduxStore";
-import {Dispatch} from "redux";
-import {usersAPI} from "../api/usersAPI";
+import {updateObjectsInArray} from '../utils/helpers';
+import {APP_NAME} from '../commonConsts';
+import {TUser} from '../types/types';
+import {InferActionsTypes, TBaseThunk} from './reduxStore';
+import {Dispatch} from 'redux';
+import {usersAPI} from '../api/usersAPI';
+import {TAPIResponse} from '../api/api';
 
 const FOLLOW_USER = `${APP_NAME}/users/FOLLOW_USER` as const,
     UNFOLLOW_USER = `${APP_NAME}/users/UNFOLLOW_USER` as const,
@@ -13,7 +14,7 @@ const FOLLOW_USER = `${APP_NAME}/users/FOLLOW_USER` as const,
     SET_FETCHING = `${APP_NAME}/users/SET_FETCHING` as const,
     SET_FOLLOWING_PROGRESS_QUEUE = `${APP_NAME}/users/SET_FOLLOWING_PROGRESS_QUEUE` as const;
 
-type TInitialState = typeof initialState;
+export type TInitialState = typeof initialState;
 
 let initialState = {
     users: [] as Array<TUser> | [],
@@ -30,43 +31,43 @@ const usersReducer = (state = initialState, action: ActionsTypes): TInitialState
             return {
                 ...state,
                 users: updateObjectsInArray(state.users, action.user_id, 'id', {followed: true})
-            }
+            };
         case UNFOLLOW_USER:
             return {
                 ...state,
                 users: updateObjectsInArray(state.users, action.user_id, 'id', {followed: false})
-            }
+            };
         case SET_USERS:
             return {
                 ...state,
                 users: action.users
-            }
+            };
         case SET_CURRENT_PAGE:
             return {
                 ...state,
                 currentPage: action.currentPage
-            }
+            };
         case SET_TOTAL_USERS_COUNT:
             return {
                 ...state,
                 totalUsersCount: action.totalUsersCount
-            }
+            };
         case SET_FETCHING:
             return {
                 ...state,
                 isFetching: action.isFetching
-            }
+            };
         case SET_FOLLOWING_PROGRESS_QUEUE:
             return {
                 ...state,
                 followingProgressQueue:
                     action.isFetching ? [...state.followingProgressQueue, action.userId]
                         : state.followingProgressQueue.filter(id => id !== action.userId)
-            }
+            };
         default:
             return state;
     }
-}
+};
 type ActionsTypes = InferActionsTypes<typeof actionCreators>
 export const actionCreators = {
     followUser: (user_id: number) => ({
@@ -99,40 +100,44 @@ export const actionCreators = {
         userId
     })
 
-}
+};
 
 //thunk creators
 export const getUsers = (page: number, pageSize: number): TThunk =>
     async (dispatch) => { //thunk function
-        dispatch(actionCreators.setFetching(true))
+        dispatch(actionCreators.setFetching(true));
         let data = await usersAPI.getUsers(page, pageSize);
-        dispatch(actionCreators.setFetching(false))
-        dispatch(actionCreators.setUsers(data.items))
-        dispatch(actionCreators.setTotalUsersCount(data.totalCount))
-    }
+        dispatch(actionCreators.setFetching(false));
+        dispatch(actionCreators.setUsers(data.items));
+        dispatch(actionCreators.setTotalUsersCount(data.totalCount));
+    };
 
-const _followUnfollowFlow = async (dispatch: DispatchType, user_id: number, apiMethod, actionCreator: (user_id: number) => any) => {
-    dispatch(actionCreators.toggleFollowingIsFetching(true, user_id))
-    let data = await apiMethod(user_id)
-    if (data.resultCode === 0) {
-        dispatch(actionCreator(user_id))
-        dispatch(actionCreators.toggleFollowingIsFetching(false, user_id))
+const _followUnfollowFlow = async (dispatch: DispatchType,
+                                   user_id: number,
+                                   apiMethod: (userId: number) => Promise<TAPIResponse>,
+                                   actionCreator: (user_id: number) => ActionsTypes) => {
+    dispatch(actionCreators.toggleFollowingIsFetching(true, user_id));
+    let data = await apiMethod(user_id);
+    if (data && data.resultCode === 0) {
+        dispatch(actionCreator(user_id));
+        dispatch(actionCreators.toggleFollowingIsFetching(false, user_id));
     }
-}
+};
+
 export const followUser = (user_id): TThunk =>//thunk creator
     async (dispatch) => {//thunk function
-        await _followUnfollowFlow(dispatch, user_id, usersAPI.followUser, actionCreators.followUser)
-    }
+        await _followUnfollowFlow(dispatch, user_id, usersAPI.followUser.bind(usersAPI), actionCreators.followUser);
+    };
 
 export const unfollowUser = (user_id): TThunk =>//thunk creator
     async (dispatch) => {//thunk function
-        await _followUnfollowFlow(dispatch, user_id, usersAPI.unfollowUser, actionCreators.unfollowUser)
-    }
+        await _followUnfollowFlow(dispatch, user_id, usersAPI.unfollowUser.bind(usersAPI), actionCreators.unfollowUser);
+    };
 
 export const setCurrentPage = (currentPage: number): TThunk => //thunk creator
     async (dispatch) => { //thunk function
-        dispatch(actionCreators.setCurrentPage(currentPage))
-    }
+        dispatch(actionCreators.setCurrentPage(currentPage));
+    };
 //thunk functions end
 export default usersReducer;
 
