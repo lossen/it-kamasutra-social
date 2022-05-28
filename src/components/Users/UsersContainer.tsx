@@ -1,9 +1,9 @@
-import {connect} from "react-redux";
-import {followUser, getUsers, setCurrentPage, unfollowUser} from "../../redux/usersReducer";
-import React from "react";
-import Users from "./Users";
-import Loader from "../common/Loader/Loader";
-import {compose} from "redux";
+import {connect} from 'react-redux';
+import {followUser, getUsers, setCurrentPage, unfollowUser} from '../../redux/usersReducer';
+import React from 'react';
+import Users from './Users';
+import Loader from '../common/Loader/Loader';
+import {compose} from 'redux';
 import {
     getCurrentPage,
     getFollowingProgressQueue,
@@ -11,9 +11,9 @@ import {
     getPageSize,
     getTotalUsersCount,
     getUsersSelector
-} from "../../redux/usersSelectors";
-import {TUser} from "../../types/types";
-import {AppStateType} from "../../redux/reduxStore";
+} from '../../redux/usersSelectors';
+import {TUser} from '../../types/types';
+import {AppStateType} from '../../redux/reduxStore';
 
 type OwnProps = {
 

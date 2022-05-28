@@ -1,10 +1,10 @@
-import React from "react";
-import Login from "./Login";
-import {reduxForm} from "redux-form";
-import {connect} from "react-redux";
-import {loginThunkCreator} from "../../redux/authReducer";
-import {Navigate} from "react-router-dom";
-import {AppStateType} from "../../redux/reduxStore";
+import React from 'react';
+import Login from './Login';
+import {reduxForm} from 'redux-form';
+import {connect} from 'react-redux';
+import {loginThunkCreator} from '../../redux/authReducer';
+import {Navigate} from 'react-router-dom';
+import {AppStateType} from '../../redux/reduxStore';
 
 let ReduxFormLogin = reduxForm<TLoginValues,TOwnProps>({
     form: "login"

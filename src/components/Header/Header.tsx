@@ -1,9 +1,9 @@
 import React from 'react';
 // @ts-ignore
-import Logo from "../../images/logo.png";
+import Logo from '../../images/logo.png';
 import classes from './Header.module.css';
-import {NavLink} from "react-router-dom";
-import {TDispatchProps, TStateProps} from "./HeaderContainer";
+import {NavLink} from 'react-router-dom';
+import {TDispatchProps, TStateProps} from './HeaderContainer';
 
 const Header:React.FC<TStateProps & TDispatchProps> = (props) => {
     return (

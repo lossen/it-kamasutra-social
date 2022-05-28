@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const FormControl:React.FC<TFormControlProps> = ({meta: {touched, error}, children}) => {
     const hasError = touched && error;

@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './MyPosts.module.css';
-import Post from "./Post/Post";
-import {TPost} from "../../../types/types";
-import {TNewPostValues, WithReduxFormAddNewPost} from "./AddNewPostForm";
+import Post from './Post/Post';
+import {TPost} from '../../../types/types';
+import {TNewPostValues, WithReduxFormAddNewPost} from './AddNewPostForm';
 
 const MyPosts:React.FC<TOwnProps> = (props) => {
 

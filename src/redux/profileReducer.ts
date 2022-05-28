@@ -1,8 +1,8 @@
-import {APP_NAME} from "../commonConsts";
-import {FormAction, stopSubmit} from "redux-form";
-import {TPost, TProfile} from "../types/types";
-import {InferActionsTypes, TBaseThunk} from "./reduxStore";
-import {profileAPI} from "../api/profileAPI";
+import {APP_NAME} from '../commonConsts';
+import {FormAction, stopSubmit} from 'redux-form';
+import {TPost, TProfile} from '../types/types';
+import {InferActionsTypes, TBaseThunk} from './reduxStore';
+import {profileAPI} from '../api/profileAPI';
 
 const ADD_POST = `${APP_NAME}/profile/ADD_POST` as const,
     SET_USER_PROFILE = `${APP_NAME}/profile/SET_USER_PROFILE` as const,

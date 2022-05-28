@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Post.module.css';
-import {TPost} from "../../../../types/types";
+import {TPost} from '../../../../types/types';
 
 const Post:React.FC<TProps> = (props) => {
     let {message,likesCount} = props.data;

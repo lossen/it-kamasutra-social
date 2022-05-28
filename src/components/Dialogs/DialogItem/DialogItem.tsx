@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './DialogItem.module.css';
-import {NavLink} from "react-router-dom";
-import {TDialog} from "../../../types/types";
+import {NavLink} from 'react-router-dom';
+import {TDialog} from '../../../types/types';
 
 const DialogItem:React.FC<TDialog> = (props) => {
     return(

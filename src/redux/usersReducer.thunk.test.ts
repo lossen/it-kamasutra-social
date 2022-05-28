@@ -1,6 +1,7 @@
-import {actionCreators, followUser,unfollowUser} from './usersReducer';
+import {actionCreators, followUser, unfollowUser} from './usersReducer';
 import {usersAPI} from '../api/usersAPI';
 import {ResultCodesEnum, TAPIResponse} from '../api/api';
+
 jest.mock('../api/usersAPI');
 const usersAPIMock = usersAPI as jest.Mocked<typeof usersAPI>;
 const dispatchMock = jest.fn();

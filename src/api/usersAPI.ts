@@ -1,5 +1,5 @@
-import {GetItemsResponseType, instance, TAPIResponse} from "./api";
-import {TUser} from "../types/types";
+import {GetItemsResponseType, instance, TAPIResponse} from './api';
+import {TUser} from '../types/types';
 
 export const usersAPI = {
     getUsers(page = 1, pageSize = 20) {

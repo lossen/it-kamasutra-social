@@ -1,5 +1,5 @@
-import {TPhotos, TProfile} from "../types/types";
-import {instance, TAPIResponse} from "./api";
+import {TPhotos, TProfile} from '../types/types';
+import {instance, TAPIResponse} from './api';
 
 export const profileAPI = {
     getProfileData(userId: number) {

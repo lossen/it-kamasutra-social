@@ -1,8 +1,8 @@
-import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input, Textarea} from "../../../common/Forms/FormControls";
-import classes from "../../../Login/Login.module.css";
-import {TProfile} from "../../../../types/types";
+import React from 'react';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {Input, Textarea} from '../../../common/Forms/FormControls';
+import classes from '../../../Login/Login.module.css';
+import {TProfile} from '../../../../types/types';
 
 
 type TOwnProps = {

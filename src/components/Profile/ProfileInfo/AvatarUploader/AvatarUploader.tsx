@@ -1,5 +1,5 @@
-import React, {ChangeEvent} from "react";
-import classes from "../ProfileInfo.module.css";
+import React, {ChangeEvent} from 'react';
+import classes from '../ProfileInfo.module.css';
 
 type PropsType = {
     isOwner: boolean

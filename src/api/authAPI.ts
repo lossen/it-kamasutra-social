@@ -1,4 +1,4 @@
-import {instance, TAPIResponse} from "./api";
+import {instance, TAPIResponse} from './api';
 
 type CheckLoginResponseDataType = {
         id: number

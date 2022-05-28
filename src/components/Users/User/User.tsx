@@ -1,9 +1,9 @@
-import React from "react";
-import classes from "./User.module.css";
+import React from 'react';
+import classes from './User.module.css';
 // @ts-ignore
-import Avatar from '../../../images/avatar.placeholder.png'
-import {NavLink} from "react-router-dom";
-import {TUser} from "../../../types/types";
+import Avatar from '../../../images/avatar.placeholder.png';
+import {NavLink} from 'react-router-dom';
+import {TUser} from '../../../types/types';
 
 type PropsType = {
     user: TUser

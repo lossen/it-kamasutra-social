@@ -1,9 +1,9 @@
-import {ResultCodesEnum} from "../api/api";
-import {FormAction, stopSubmit} from "redux-form";
-import {APP_NAME} from "../commonConsts";
-import {InferActionsTypes, TBaseThunk} from "./reduxStore";
-import {authAPI} from "../api/authAPI";
-import {securityAPI} from "../api/securityAPI";
+import {ResultCodesEnum} from '../api/api';
+import {FormAction, stopSubmit} from 'redux-form';
+import {APP_NAME} from '../commonConsts';
+import {InferActionsTypes, TBaseThunk} from './reduxStore';
+import {authAPI} from '../api/authAPI';
+import {securityAPI} from '../api/securityAPI';
 
 const SET_USER_DATA = `${APP_NAME}/auth/SET_USER_DATA` as const;
 const SET_CAPTCHA_URL = `${APP_NAME}/auth/SET_CAPTCHA_URL` as const;

@@ -1,7 +1,7 @@
-import {addPostThunkCreator} from "../../../redux/profileReducer";
-import MyPosts from "./MyPosts";
-import {connect} from "react-redux";
-import {AppStateType} from "../../../redux/reduxStore";
+import {addPostThunkCreator} from '../../../redux/profileReducer';
+import MyPosts from './MyPosts';
+import {connect} from 'react-redux';
+import {AppStateType} from '../../../redux/reduxStore';
 
 const mapStateToProps = (state:AppStateType) => ({
     posts: state.profilePage.posts,

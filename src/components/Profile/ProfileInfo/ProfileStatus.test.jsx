@@ -1,6 +1,6 @@
-import React from "react";
-import TestRenderer from "react-test-renderer";
-import ProfileStatus from "./ProfileStatus";
+import React from 'react';
+import TestRenderer from 'react-test-renderer';
+import ProfileStatus from './ProfileStatus';
 
 
 describe('Profile status component', () => {

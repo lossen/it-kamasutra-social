@@ -1,4 +1,4 @@
-import profileReducer, {actionCreators} from "./profileReducer";
+import profileReducer, {actionCreators} from './profileReducer';
 
 let state = {
     posts: [

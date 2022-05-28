@@ -1,18 +1,19 @@
 import React, {useEffect} from 'react';
-import Profile from "./Profile";
-import {connect} from "react-redux";
+import Profile from './Profile';
+import {connect} from 'react-redux';
 import {
     getProfileDataThunkCreator,
     getProfileStatusThunkCreator,
     saveAvatar,
     saveProfileData,
     setProfileStatusThunkCreator,
-} from "../../redux/profileReducer";
-import {withRouter} from "../hocs/WithRouter/WithRouter";
-import withRedirect from "../hocs/withAuthRedirect/withAuthRedirect";
-import {compose} from "redux";
-import {TProfile} from "../../types/types";
-import {AppStateType} from "../../redux/reduxStore";
+} from '../../redux/profileReducer';
+import {withRouter} from '../hocs/WithRouter/WithRouter';
+import withRedirect from '../hocs/withAuthRedirect/withAuthRedirect';
+import {compose} from 'redux';
+import {TProfile} from '../../types/types';
+import {AppStateType} from '../../redux/reduxStore';
+
 type TStateProps = ReturnType<typeof mapStateToProps>
 
 type TDispatchProps = {

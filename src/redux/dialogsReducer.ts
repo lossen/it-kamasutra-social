@@ -1,7 +1,7 @@
-import {TMessage} from "../types/types";
-import {dialogsAPI} from "../api/dialogsAPI";
-import {InferActionsTypes, TBaseThunk} from "./reduxStore";
-import {APP_NAME} from "../commonConsts";
+import {TMessage} from '../types/types';
+import {dialogsAPI} from '../api/dialogsAPI';
+import {InferActionsTypes, TBaseThunk} from './reduxStore';
+import {APP_NAME} from '../commonConsts';
 
 const SEND_MESSAGE = `${APP_NAME}/dialogs/SEND_MESSAGE` as const;
 let initialState = {

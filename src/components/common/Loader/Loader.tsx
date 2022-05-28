@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 // @ts-ignore
 import LoaderGif from '../../../images/loader.gif';
 

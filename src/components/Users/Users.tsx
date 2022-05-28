@@ -1,7 +1,7 @@
-import React from "react";
-import User from "./User/User";
-import Pagination from "../common/Pagination/Pagination";
-import {TUser} from "../../types/types";
+import React from 'react';
+import User from './User/User';
+import Pagination from '../common/Pagination/Pagination';
+import {TUser} from '../../types/types';
 
 type PropsType = {
     totalUsersCount: number,

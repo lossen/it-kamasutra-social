@@ -1,15 +1,15 @@
 import './App.css';
-import Navbar from "./components/Navbar/Navbar";
-import {Route, Routes} from "react-router-dom";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginContainer from "./components/Login/LoginContainer";
-import React, {Component} from "react";
-import {checkLoginThunkCreator} from "./redux/authReducer";
-import {connect} from "react-redux";
-import {initialisedSuccessfulThunkCreator} from "./redux/appReducer";
-import Loader from "./components/common/Loader/Loader";
-import {withSuspense} from "./components/hocs/WithSuspense/WithSuspense";
-import {AppStateType} from "./redux/reduxStore";
+import Navbar from './components/Navbar/Navbar';
+import {Route, Routes} from 'react-router-dom';
+import HeaderContainer from './components/Header/HeaderContainer';
+import LoginContainer from './components/Login/LoginContainer';
+import React, {Component} from 'react';
+import {checkLoginThunkCreator} from './redux/authReducer';
+import {connect} from 'react-redux';
+import {initialisedSuccessfulThunkCreator} from './redux/appReducer';
+import Loader from './components/common/Loader/Loader';
+import {withSuspense} from './components/hocs/WithSuspense/WithSuspense';
+import {AppStateType} from './redux/reduxStore';
 
 type TStateProps = ReturnType<typeof mapStateToProps>
 type TDispatchProps = {

@@ -1,10 +1,11 @@
-import {sendMessageThunkCreator} from "../../redux/dialogsReducer";
-import Dialogs from "./Dialogs";
-import {connect} from "react-redux";
-import withRedirect from "../hocs/withAuthRedirect/withAuthRedirect";
-import {compose} from "redux";
-import {AppStateType} from "../../redux/reduxStore";
-import React from "react";
+import {sendMessageThunkCreator} from '../../redux/dialogsReducer';
+import Dialogs from './Dialogs';
+import {connect} from 'react-redux';
+import withRedirect from '../hocs/withAuthRedirect/withAuthRedirect';
+import {compose} from 'redux';
+import {AppStateType} from '../../redux/reduxStore';
+import React from 'react';
+
 type TStateProps = ReturnType<typeof mapStateToProps>
 type TDispatchProps = {
     sendMessageThunkCreator: (body:string) => void

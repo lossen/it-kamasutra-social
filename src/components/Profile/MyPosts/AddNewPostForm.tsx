@@ -1,7 +1,7 @@
-import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Textarea} from "../../common/Forms/FormControls";
-import {required} from "../../../utils/validators";
+import React from 'react';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {Textarea} from '../../common/Forms/FormControls';
+import {required} from '../../../utils/validators';
 
 const AddNewPostForm: React.FC<InjectedFormProps<TNewPostValues, TOwnProps> & TOwnProps> = (props) => {
     return (

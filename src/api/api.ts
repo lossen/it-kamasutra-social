@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const API_URL = 'https://social-network.samuraijs.com/api/1.0/';
 const API_KEY = process.env.REACT_APP_API_KEY;

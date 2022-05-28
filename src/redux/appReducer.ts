@@ -1,6 +1,6 @@
-import {checkLoginThunkCreator} from "./authReducer";
-import {APP_NAME} from "../commonConsts";
-import {InferActionsTypes, TBaseThunk} from "./reduxStore";
+import {checkLoginThunkCreator} from './authReducer';
+import {APP_NAME} from '../commonConsts';
+import {InferActionsTypes, TBaseThunk} from './reduxStore';
 
 const INITIALISED_SUCCESSFUL = `${APP_NAME}/app/INITIALISED_SUCCESSFUL` as const;
 

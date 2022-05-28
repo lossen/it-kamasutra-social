@@ -1,5 +1,5 @@
-import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import React from 'react';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 
 type PropsTypes = {}
 type TNewMessageFormValues = {

@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
-import DialogItem from "./DialogItem/DialogItem";
-import MessageItem from "./MessageItem/MessageItem";
-import {TDialog, TMessage} from "../../types/types";
-import {WithReduxAddMessageForm} from "./AddMessageForm";
+import DialogItem from './DialogItem/DialogItem';
+import MessageItem from './MessageItem/MessageItem';
+import {TDialog, TMessage} from '../../types/types';
+import {WithReduxAddMessageForm} from './AddMessageForm';
 
 type PropsType = {
     dialogs: Array<TDialog>

@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import classes from './ProfileInfo.module.css';
-import Loader from "../../common/Loader/Loader";
-import ProfileStatus from "./ProfileStatus";
+import Loader from '../../common/Loader/Loader';
+import ProfileStatus from './ProfileStatus';
 // @ts-ignore
-import Avatar from '../../../images/avatar.placeholder.png'
-import AvatarUploader from "./AvatarUploader/AvatarUploader";
-import ProfileData from "./ProfileData/ProfileData";
-import ReduxFormEditProfile from "./ProfileData/ProfileDataForm";
-import {TProfile} from "../../../types/types";
+import Avatar from '../../../images/avatar.placeholder.png';
+import AvatarUploader from './AvatarUploader/AvatarUploader';
+import ProfileData from './ProfileData/ProfileData';
+import ReduxFormEditProfile from './ProfileData/ProfileDataForm';
+import {TProfile} from '../../../types/types';
 
 type PropsType = {
     profile: TProfile
