@@ -1,7 +1,8 @@
-.item{
+.item {
     background-color: #fdf3f3;
     padding: 10px;
 }
-.active{
+
+.active {
     color: gold;
 }

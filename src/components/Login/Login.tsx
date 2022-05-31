@@ -15,27 +15,27 @@ const Login: React.FC<InjectedFormProps<TLoginValues, TOwnProps> & TOwnProps> =
                 <h1>Login page</h1>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <Field name={"email"} type="text" placeholder="Email" component={Input} validate={required}/>
+                        <Field name={'email'} type="text" placeholder="Email" component={Input} validate={required}/>
                     </div>
                     <div>
-                        <Field name={"password"} type="text" placeholder="Password" component={Input}
+                        <Field name={'password'} type="text" placeholder="Password" component={Input}
                                validate={required}/>
                     </div>
                     <div>
-                        <Field name={"rememberMe"} type="checkbox" component={"input"}/> Remember me
+                        <Field name={'rememberMe'} type="checkbox" component={'input'}/> Remember me
                     </div>
                     {error && <div className={classes.errorBox}>
                         <span className={classes.errorTitle}>{error}</span>
                     </div>}
                     {captchaUrl && <img src={captchaUrl} alt=""/>}
                     {captchaUrl && <div>
-                        <Field name={"captcha"} type="text" placeholder="Symbols from image" component={Input}
+                        <Field name={'captcha'} type="text" placeholder="Symbols from image" component={Input}
                                validate={required}/>
                     </div>}
                     <button>Submit</button>
                 </form>
             </div>
-        )
-    }
+        );
+    };
 
 export default Login;

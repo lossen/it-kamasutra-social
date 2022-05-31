@@ -14,73 +14,74 @@ let initialState = {
     login: null as string | null,
     isAuth: false,
     captchaUrl: null as string | null,
-}
+};
 type TInitialState = typeof initialState;
 
-const authReducer = (state = initialState, action:ActionsTypes): TInitialState => {
-    switch (action.type){
+const authReducer = (state = initialState, action: ActionsTypes): TInitialState => {
+    switch (action.type) {
         case SET_USER_DATA:
         case SET_CAPTCHA_URL:
             return {
                 ...state,
                 ...action.payload,
-            }
-        default: return state;
+            };
+        default:
+            return state;
     }
-}
+};
 
 type ActionsTypes = InferActionsTypes<typeof actionCreators>
 const actionCreators = {
-    setAuthUserData: (userId:number,email: string,login: string,isAuth: boolean) => ({
+    setAuthUserData: (userId: number, email: string, login: string, isAuth: boolean) => ({
         type: SET_USER_DATA,
-        payload: {userId,email,login,isAuth}
+        payload: {userId, email, login, isAuth}
     }),
-    getCaptchaUrl: (captchaUrl:string) => ({
+    getCaptchaUrl: (captchaUrl: string) => ({
         type: SET_CAPTCHA_URL,
         payload: {captchaUrl}
     })
-}
+};
 
 //thunk creators
-export const checkLoginThunkCreator = ():TThunk => //thunk creator
+export const checkLoginThunkCreator = (): TThunk => //thunk creator
     async (dispatch) => { //thunk function
-        let data = await authAPI.checkLogin()
+        let data = await authAPI.checkLogin();
         if (data.resultCode === ResultCodesEnum.Success) {
             let {id, email, login} = data.data;
             let isAuth = true;
-            dispatch(actionCreators.setAuthUserData(id, email, login, isAuth))
+            dispatch(actionCreators.setAuthUserData(id, email, login, isAuth));
         }
-    }
+    };
 
-export const loginThunkCreator = (email: string, password: string, rememberMe:boolean,captcha:string):TThunk =>
+export const loginThunkCreator = (email: string, password: string, rememberMe: boolean, captcha: string): TThunk =>
     async (dispatch) => {
-        let data = await authAPI.login(email, password, rememberMe,captcha)
+        let data = await authAPI.login(email, password, rememberMe, captcha);
         if (data.resultCode === ResultCodesEnum.Success) {
-            dispatch(checkLoginThunkCreator())
+            dispatch(checkLoginThunkCreator());
         } else {
-            if (data.resultCode === ResultCodesEnum.CaptchaIsRequired){
-                dispatch(getCaptchaUrl())
+            if (data.resultCode === ResultCodesEnum.CaptchaIsRequired) {
+                dispatch(getCaptchaUrl());
             }
-            let errorMessage = data.messages.length > 0 ? data.messages[0] : 'Server error'
-            dispatch(stopSubmit("login", {_error: errorMessage}))
+            let errorMessage = data.messages.length > 0 ? data.messages[0] : 'Server error';
+            dispatch(stopSubmit('login', {_error: errorMessage}));
         }
-    }
+    };
 
-export const logoutThunkCreator = ():TThunk =>
+export const logoutThunkCreator = (): TThunk =>
     async (dispatch) => {
-        let data = await authAPI.logout()
+        let data = await authAPI.logout();
         if (data.resultCode === ResultCodesEnum.Success) {
             let {userId, email, login, isAuth} = initialState;
-            dispatch(actionCreators.setAuthUserData(userId, email, login, isAuth))
+            dispatch(actionCreators.setAuthUserData(userId, email, login, isAuth));
         }
-    }
+    };
 
-export const getCaptchaUrl = ():TThunk =>//thunk creator
+export const getCaptchaUrl = (): TThunk =>//thunk creator
     async (dispatch) => { //thunk
-        let data = await securityAPI.getCaptchaUrl()
-        dispatch(actionCreators.getCaptchaUrl(data.url))
+        let data = await securityAPI.getCaptchaUrl();
+        dispatch(actionCreators.getCaptchaUrl(data.url));
 
-    }
+    };
 //thunk creators end
 export default authReducer;
 type TThunk = TBaseThunk<ActionsTypes | FormAction>;

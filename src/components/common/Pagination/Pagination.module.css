@@ -1,24 +1,26 @@
-.pagination{
+.pagination {
     margin: 16px 0;
 }
-.active{
+
+.active {
     font-weight: bold;
     color: #89a5e5;
 }
 
-.page{
+.page {
     padding: 4px 8px;
     font-size: 16px;
 }
 
-.navBtn{
+.navBtn {
     background: white;
     border: none;
     padding: 4px 8px;
     border-radius: 4px;
     margin: 0 4px;
 }
-.page{
+
+.page {
     background: white;
     border: none;
     padding: 4px 8px;

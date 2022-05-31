@@ -1,19 +1,20 @@
-.profileInfo{
+.profileInfo {
     padding: 10px;
 }
-.topCoverImageWrapper{
+
+.topCoverImageWrapper {
     width: 100%;
     height: 240px;
 
 }
 
-.topCoverImageWrapperInner{
+.topCoverImageWrapperInner {
     overflow: hidden;
     position: relative;
     height: 240px;
 }
 
-.topCoverImage{
+.topCoverImage {
     position: absolute;
     max-width: 150%;
     min-width: 100%;
@@ -23,7 +24,7 @@
     transform: translate(-50%, -50%);
 }
 
-.avatarWrapper{
+.avatarWrapper {
     position: relative;
     bottom: 0;
     left: 50%;
@@ -38,7 +39,8 @@
     align-items: center;
     background-color: #fff;
 }
-.avatarImage{
+
+.avatarImage {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -49,14 +51,17 @@
     min-width: 100%;
     min-height: 100%;
 }
-.avatarWrapper:hover .avatarImage{
+
+.avatarWrapper:hover .avatarImage {
     opacity: 0;
     z-index: 0;
 }
-.avatarWrapper:hover .uploadAvatarInput{
+
+.avatarWrapper:hover .uploadAvatarInput {
     opacity: 1;
     z-index: 1;
 }
-.uploadAvatarInput{
+
+.uploadAvatarInput {
     opacity: 0;
 }

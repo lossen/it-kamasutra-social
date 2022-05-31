@@ -6,6 +6,6 @@ export const withSuspense = (Component) => {
             <React.Suspense fallback={<div>Loading...</div>}>
                 <Component {...props}/>;
             </React.Suspense>
-        )
-    }
-}
+        );
+    };
+};

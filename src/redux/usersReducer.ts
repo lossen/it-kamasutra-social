@@ -12,13 +12,15 @@ const FOLLOW_USER = `${APP_NAME}/users/FOLLOW_USER` as const,
     SET_CURRENT_PAGE = `${APP_NAME}/users/SET_CURRENT_PAGE` as const,
     SET_TOTAL_USERS_COUNT = `${APP_NAME}/users/SET_TOTAL_USERS_COUNT` as const,
     SET_FETCHING = `${APP_NAME}/users/SET_FETCHING` as const,
+    SET_FILTER = `${APP_NAME}/users/SET_FILTER` as const,
     SET_FOLLOWING_PROGRESS_QUEUE = `${APP_NAME}/users/SET_FOLLOWING_PROGRESS_QUEUE` as const;
-
-export type TInitialState = typeof initialState;
 
 let initialState = {
     users: [] as Array<TUser> | [],
     pageSize: 100,
+    filter: {
+        term: ''
+    },
     totalUsersCount: 21,
     currentPage: 1,
     isFetching: false,
@@ -64,6 +66,11 @@ const usersReducer = (state = initialState, action: ActionsTypes): TInitialState
                     action.isFetching ? [...state.followingProgressQueue, action.userId]
                         : state.followingProgressQueue.filter(id => id !== action.userId)
             };
+        case SET_FILTER:
+            return {
+                ...state,
+                filter: action.payload
+            };
         default:
             return state;
     }
@@ -98,15 +105,21 @@ export const actionCreators = {
         type: SET_FOLLOWING_PROGRESS_QUEUE,
         isFetching,
         userId
+    }),
+    setFilter: (term: string) => ({
+        type: SET_FILTER,
+        payload: {term}
     })
 
 };
 
 //thunk creators
-export const getUsers = (page: number, pageSize: number): TThunk =>
+export const getUsers = (page: number, pageSize: number, term: string): TThunk =>
     async (dispatch) => { //thunk function
         dispatch(actionCreators.setFetching(true));
-        let data = await usersAPI.getUsers(page, pageSize);
+        dispatch(actionCreators.setFilter(term));
+        dispatch(actionCreators.setCurrentPage(page));
+        let data = await usersAPI.getUsers(page, pageSize, term);
         dispatch(actionCreators.setFetching(false));
         dispatch(actionCreators.setUsers(data.items));
         dispatch(actionCreators.setTotalUsersCount(data.totalCount));
@@ -138,8 +151,15 @@ export const setCurrentPage = (currentPage: number): TThunk => //thunk creator
     async (dispatch) => { //thunk function
         dispatch(actionCreators.setCurrentPage(currentPage));
     };
+export const setFilter = (term: string): TThunk =>
+    async (dispatch) => {
+        dispatch(actionCreators.setFilter(term));
+    };
 //thunk functions end
 export default usersReducer;
 
 type TThunk = TBaseThunk<ActionsTypes>;
 export type DispatchType = Dispatch<ActionsTypes>
+export type TInitialState = typeof initialState;
+export type TFilter = typeof initialState.filter;
+

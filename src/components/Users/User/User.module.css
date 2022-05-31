@@ -1,4 +1,4 @@
-.user{
+.user {
     display: flex;
     flex-direction: row;
     margin-bottom: 24px;
@@ -6,16 +6,19 @@
     padding: 24px;
     border-radius: 16px;
 }
-.column{
+
+.column {
     display: flex;
     flex-direction: column;
     margin-right: 16px;
 }
-.row{
+
+.row {
     display: flex;
     flex-direction: row;
 }
-.avatar{
+
+.avatar {
     position: relative;
     width: 50px;
     height: 50px;
@@ -23,7 +26,8 @@
     border-radius: 100%;
     margin-bottom: 16px;
 }
-.avatarImage{
+
+.avatarImage {
     position: absolute;
     max-width: 150%;
     max-height: 150%;

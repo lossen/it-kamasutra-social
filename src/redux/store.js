@@ -6,23 +6,23 @@ let store = {
     _state: {
         profilePage: {
             posts: [
-                {id: 1, message: "hi", likesCount: 12},
-                {id: 2, message: "how are you?", likesCount: 11},
-                {id: 3, message: "me first post", likesCount: 0},
+                {id: 1, message: 'hi', likesCount: 12},
+                {id: 2, message: 'how are you?', likesCount: 11},
+                {id: 3, message: 'me first post', likesCount: 0},
             ],
             newPostText: ''
         },
-        dialogsPage:{
+        dialogsPage: {
             messages: [
-                {id: 1, text: "hi"},
-                {id: 2, text: "hello"},
-                {id: 3, text: "bye"},
+                {id: 1, text: 'hi'},
+                {id: 2, text: 'hello'},
+                {id: 3, text: 'bye'},
             ],
             newMessageBody: '',
             dialogs: [
-                {id: 1, name: "Anechka"},
-                {id: 2, name: "Maxim"},
-                {id: 3, name: "Reginald"},
+                {id: 1, name: 'Anechka'},
+                {id: 2, name: 'Maxim'},
+                {id: 3, name: 'Reginald'},
             ],
         },
         sidebar: {}
@@ -41,12 +41,12 @@ let store = {
     setState(newState) {
         this._state = {...this._state, newState};
     },
-    dispatch(action){
-        this._state.profilePage = profileReducer(this._state.profilePage,action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage,action)
-        this._state.sidebar =  sidebarReducer(this._state.sidebar,action)
-        this._callSubscriber(this._state)
+    dispatch(action) {
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        this._callSubscriber(this._state);
     }
-}
+};
 
 export default store;

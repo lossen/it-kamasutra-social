@@ -5,7 +5,7 @@ import classes from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import {TDispatchProps, TStateProps} from './HeaderContainer';
 
-const Header:React.FC<TStateProps & TDispatchProps> = (props) => {
+const Header: React.FC<TStateProps & TDispatchProps> = (props) => {
     return (
         <header className={classes.header}>
             <img className={classes.logo} src={Logo} alt=""/>
@@ -14,7 +14,7 @@ const Header:React.FC<TStateProps & TDispatchProps> = (props) => {
                 {props.isAuth && <button onClick={props.logoutThunkCreator}>logout</button>}
             </div>
         </header>
-    )
-}
+    );
+};
 
 export default Header;

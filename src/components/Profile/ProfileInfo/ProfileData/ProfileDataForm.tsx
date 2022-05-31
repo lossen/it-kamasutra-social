@@ -9,23 +9,24 @@ type TOwnProps = {
     profile: TProfile
 }
 
-const ProfileDataForm:React.FC<InjectedFormProps<TProfile,TOwnProps>> = ({error,...props}) => {
+const ProfileDataForm: React.FC<InjectedFormProps<TProfile, TOwnProps>> = ({error, ...props}) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
             <b>Full name:</b>
-            <Field name={"fullName"} type="text" placeholder="fullName" component={Input}/>
+            <Field name={'fullName'} type="text" placeholder="fullName" component={Input}/>
         </div>
         <div>
             <b>I'm looking for a job:</b>
-            <Field name={"lookingForAJob"} type="checkbox" placeholder="lookingForAJob" component={Input}/>
+            <Field name={'lookingForAJob'} type="checkbox" placeholder="lookingForAJob" component={Input}/>
         </div>
         <div>
             <b>My professional skills:</b>
-            <Field name={"lookingForAJobDescription"} type="text" placeholder="lookingForAJobDescription" component={Textarea}/>
+            <Field name={'lookingForAJobDescription'} type="text" placeholder="lookingForAJobDescription"
+                   component={Textarea}/>
         </div>
         <div>
             <b>About me:</b>
-            <Field name={"aboutMe"} type="text" placeholder="aboutMe" component={Textarea}/>
+            <Field name={'aboutMe'} type="text" placeholder="aboutMe" component={Textarea}/>
         </div>
         <div>
             {/*// @ts-ignore*/}
@@ -34,7 +35,7 @@ const ProfileDataForm:React.FC<InjectedFormProps<TProfile,TOwnProps>> = ({error,
                         return <div>
                             <b>{key}</b>
                             <Field name={`contacts.${key}`} type="text" placeholder={key} component={Input}/>
-                        </div>
+                        </div>;
 
                     }
                 )}
@@ -45,11 +46,11 @@ const ProfileDataForm:React.FC<InjectedFormProps<TProfile,TOwnProps>> = ({error,
             <span className={classes.errorTitle}>{error}</span>
         </div>}
         <button>Save</button>
-    </form>
-}
+    </form>;
+};
 
 let ReduxFormEditProfile = reduxForm<TProfile, TOwnProps>({
-    form: "profileDataForm"
-})(ProfileDataForm)
+    form: 'profileDataForm'
+})(ProfileDataForm);
 
 export default ReduxFormEditProfile;

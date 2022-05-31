@@ -1,6 +1,6 @@
 import usersReducer, {actionCreators, TInitialState} from './usersReducer';
 
-let state: TInitialState ;
+let state: TInitialState;
 
 beforeEach(() => {
     state = {
@@ -51,10 +51,13 @@ beforeEach(() => {
         totalUsersCount: 21,
         currentPage: 1,
         isFetching: false,
-        followingProgressQueue: []
+        followingProgressQueue: [],
+        filter: {
+            term: ''
+        }
     };
-})
-describe("Following flow", () => {
+});
+describe('Following flow', () => {
     test('Followed successfully', () => {
         const newState = usersReducer(state, actionCreators.followUser(2));
         expect(newState.users[0].followed).toBeFalsy();
@@ -66,4 +69,4 @@ describe("Following flow", () => {
         expect(newState.users[2].followed).toBeTruthy();
         expect(newState.users[3].followed).toBeFalsy();
     });
-})
+});

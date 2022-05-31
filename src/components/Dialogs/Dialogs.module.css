@@ -1,9 +1,9 @@
-.dialogs{
+.dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
 }
 
-.messages{
+.messages {
     background-color: #f5fff4;
 }
 

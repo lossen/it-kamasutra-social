@@ -6,34 +6,34 @@ const INITIALISED_SUCCESSFUL = `${APP_NAME}/app/INITIALISED_SUCCESSFUL` as const
 
 let initialState = {
     initialised: false,
-}
-export type TInitialState =  typeof initialState
+};
+export type TInitialState = typeof initialState
 
-const appReducer = (state = initialState, action:any):TInitialState => {
+const appReducer = (state = initialState, action: any): TInitialState => {
     switch (action.type) {
         case INITIALISED_SUCCESSFUL:
             return {
                 ...state,
                 initialised: true
-            }
+            };
         default:
             return state;
     }
-}
+};
 type ActionsTypes = InferActionsTypes<typeof actionCreators>
 
 const actionCreators = {
     initialisedSuccessful: () => ({
         type: INITIALISED_SUCCESSFUL,
     })
-}
+};
 
 //thunk creators
-export const initialisedSuccessfulThunkCreator = ():TThunk =>
+export const initialisedSuccessfulThunkCreator = (): TThunk =>
     async (dispatch) => {
-        await dispatch(checkLoginThunkCreator())
-        dispatch(actionCreators.initialisedSuccessful())
-    }
+        await dispatch(checkLoginThunkCreator());
+        dispatch(actionCreators.initialisedSuccessful());
+    };
 
 
 //thunk creators end

@@ -8,17 +8,17 @@ import React from 'react';
 
 type TStateProps = ReturnType<typeof mapStateToProps>
 type TDispatchProps = {
-    sendMessageThunkCreator: (body:string) => void
+    sendMessageThunkCreator: (body: string) => void
 }
 type TOwnProps = {}
 
-const mapStateToProps = (state:AppStateType) => ({
+const mapStateToProps = (state: AppStateType) => ({
     dialogs: state.dialogsPage.dialogs,
     messages: state.dialogsPage.messages,
 });
 
 export default compose<React.ComponentType>(
-    connect<TStateProps,TDispatchProps,TOwnProps>(mapStateToProps, {
+    connect<TStateProps, TDispatchProps, TOwnProps>(mapStateToProps, {
         sendMessageThunkCreator
     }),
     withRedirect

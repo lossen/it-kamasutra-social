@@ -9,16 +9,16 @@ type PropsType = {
     user: TUser
 
     followingProgressQueue: Array<number>
-    followUser: (user_id:number) => void
-    unfollowUser: (user_id:number) => void
+    followUser: (user_id: number) => void
+    unfollowUser: (user_id: number) => void
 }
-const User:React.FC<PropsType> = ({user,...props}) => {
+const User: React.FC<PropsType> = ({user, ...props}) => {
     const onFollow = () => {
-        props.followUser(user.id)
-    }
+        props.followUser(user.id);
+    };
     const onUnfollow = () => {
-        props.unfollowUser(user.id)
-    }
+        props.unfollowUser(user.id);
+    };
     let isDisabled = props.followingProgressQueue.some(id => id === user.id);
 
     return <div className={classes.user}>
@@ -39,7 +39,7 @@ const User:React.FC<PropsType> = ({user,...props}) => {
             {/*    <div>{props.location.city}</div>*/}
             {/*</div>*/}
         </div>
-    </div>
-}
+    </div>;
+};
 
 export default User;

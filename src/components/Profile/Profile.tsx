@@ -8,9 +8,9 @@ type PropsType = {
     profileStatus: string
     isOwner: boolean
 
-    updateProfileStatus: (status:string) => void
-    saveProfileData: (formData:TProfile) => void
-    saveAvatar: (file:File) => void
+    updateProfileStatus: (status: string) => void
+    saveProfileData: (formData: TProfile) => void
+    saveAvatar: (file: File) => void
 }
 
 const Profile: React.FC<PropsType> = (props) => {
@@ -22,7 +22,7 @@ const Profile: React.FC<PropsType> = (props) => {
             <MyPostsContainer/>
         </main>
 
-    )
-}
+    );
+};
 
 export default Profile;

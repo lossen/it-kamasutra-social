@@ -2,32 +2,32 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 
 type PropsType = {
     profileStatus: string,
-    updateProfileStatus: (status:string) => void
+    updateProfileStatus: (status: string) => void
 }
 
-const ProfileStatus:React.FC<PropsType> = (props) => {
+const ProfileStatus: React.FC<PropsType> = (props) => {
     const [isEditMode, setIsEditMode] = useState(false);
     const [status, setStatus] = useState(props.profileStatus);
 
     useEffect(() => {
-        setStatus(props.profileStatus)
+        setStatus(props.profileStatus);
 
-    },[props.profileStatus])
+    }, [props.profileStatus]);
 
     const toggleEditMode = () => {
-        setIsEditMode(!isEditMode)
-    }
+        setIsEditMode(!isEditMode);
+    };
 
-    const onChangeStatus = (e:ChangeEvent<HTMLInputElement>) => {
-        setStatus(e.target.value)
-    }
+    const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
+        setStatus(e.target.value);
+    };
 
     const handleBlur = () => {
-        if(status !== props.profileStatus){
-            props.updateProfileStatus(status)
+        if (status !== props.profileStatus) {
+            props.updateProfileStatus(status);
         }
-        toggleEditMode()
-    }
+        toggleEditMode();
+    };
 
     return (
         <>
@@ -38,7 +38,7 @@ const ProfileStatus:React.FC<PropsType> = (props) => {
         </>
 
 
-    )
-}
+    );
+};
 
 export default ProfileStatus;

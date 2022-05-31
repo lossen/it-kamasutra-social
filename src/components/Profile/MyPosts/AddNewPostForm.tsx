@@ -13,11 +13,11 @@ const AddNewPostForm: React.FC<InjectedFormProps<TNewPostValues, TOwnProps> & TO
                 <button>Add post</button>
             </div>
         </form>
-    )
-}
+    );
+};
 export let WithReduxFormAddNewPost = reduxForm<TNewPostValues>({
     form: 'addPost'
-})(AddNewPostForm)
+})(AddNewPostForm);
 
 type TOwnProps = {}
 export type TNewPostValues = {

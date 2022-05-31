@@ -9,20 +9,20 @@ const DialogsContainer = (props) => {
         {(store) => {
             let state = store.getState().dialogsPage;
             const sendMessage = () => {
-                store.dispatch(sendMessage())
-            }
+                store.dispatch(sendMessage());
+            };
 
             const updateNewMessageBody = (body) => {
-                store.dispatch(updateNewMessageBody(body))
-            }
+                store.dispatch(updateNewMessageBody(body));
+            };
             return <Dialogs updateNewMessageBody={updateNewMessageBody}
                             sendMessage={sendMessage}
                             newMessageBody={state.newMessageBody}
                             messages={state.messages}
-                            dialogs={state.dialogs}/>
+                            dialogs={state.dialogs}/>;
         }}
-    </StoreContext.Consumer>
-}
+    </StoreContext.Consumer>;
+};
 
 const mapStateToProps = (state) => ({
     dialogsPage: state.dialogsPage
@@ -30,12 +30,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         updateNewMessageBody: () => {
-            dispatch(sendMessage())
+            dispatch(sendMessage());
         },
         sendMessage: body => {
-            dispatch(updateNewMessageBody(body))
+            dispatch(updateNewMessageBody(body));
         }
-    }
+    };
 
 };
 const SuperDialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);

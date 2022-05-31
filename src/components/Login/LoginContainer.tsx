@@ -6,17 +6,16 @@ import {loginThunkCreator} from '../../redux/authReducer';
 import {Navigate} from 'react-router-dom';
 import {AppStateType} from '../../redux/reduxStore';
 
-let ReduxFormLogin = reduxForm<TLoginValues,TOwnProps>({
-    form: "login"
-})(Login)
+let ReduxFormLogin = reduxForm<TLoginValues, TOwnProps>({
+    form: 'login'
+})(Login);
 
 type TStateProps = ReturnType<typeof mapStateToProps>
 
 type TDispatchProps = {
-    loginThunkCreator: (email: string, password: string, rememberMe:boolean,captcha:string) => void
+    loginThunkCreator: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
-export type TOwnProps = {
-}
+export type TOwnProps = {}
 type TProps = TStateProps & TDispatchProps & TOwnProps;
 export type TLoginValues = {
     email: string
@@ -25,23 +24,23 @@ export type TLoginValues = {
     captcha: string
 }
 const LoginContainer: React.FC<TProps> = (props) => {
-    const onSubmit = (formData:TLoginValues) => {
+    const onSubmit = (formData: TLoginValues) => {
         let {email, password, rememberMe, captcha} = formData;
         if (formData) {
-            props.loginThunkCreator(email, password,rememberMe,captcha)
+            props.loginThunkCreator(email, password, rememberMe, captcha);
         }
-    }
-    if(props.isAuth) return <Navigate to={"/profile"}/>
+    };
+    if (props.isAuth) return <Navigate to={'/profile'}/>;
     return (
         <ReduxFormLogin {...props} onSubmit={onSubmit}/>
-    )
-}
+    );
+};
 
-let mapStateToProps = (state:AppStateType) => ({
+let mapStateToProps = (state: AppStateType) => ({
     isAuth: state.auth.isAuth,
     captchaUrl: state.auth.captchaUrl
-})
+});
 
-export default connect<TStateProps,TDispatchProps,TOwnProps>(mapStateToProps, {
+export default connect<TStateProps, TDispatchProps, TOwnProps>(mapStateToProps, {
     loginThunkCreator
 })(LoginContainer);

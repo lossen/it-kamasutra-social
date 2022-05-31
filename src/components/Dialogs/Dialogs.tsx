@@ -8,16 +8,16 @@ import {WithReduxAddMessageForm} from './AddMessageForm';
 type PropsType = {
     dialogs: Array<TDialog>
     messages: Array<TMessage>
-    sendMessageThunkCreator: (message:string) => void
+    sendMessageThunkCreator: (message: string) => void
 
 }
 
-const Dialogs:React.FC<PropsType> = (props) => {
+const Dialogs: React.FC<PropsType> = (props) => {
     const onSendMessageClick = (formData) => {
-        props.sendMessageThunkCreator(formData.message)
-    }
+        props.sendMessageThunkCreator(formData.message);
+    };
 
-    return(
+    return (
         <div className={classes.dialogs}>
             <div className="items">
                 {props.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)}
@@ -33,7 +33,7 @@ const Dialogs:React.FC<PropsType> = (props) => {
             </div>
 
         </div>
-    )
-}
+    );
+};
 
 export default Dialogs;

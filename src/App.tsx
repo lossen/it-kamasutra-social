@@ -23,12 +23,12 @@ const UsersContainer = withSuspense(React.lazy(() => import('./components/Users/
 
 class App extends Component<TStateProps & TDispatchProps> {
     componentDidMount() {
-        this.props.initialisedSuccessfulThunkCreator()
+        this.props.initialisedSuccessfulThunkCreator();
     }
 
     render() {
         if (!this.props.initialised) {
-            return <Loader isFetching/>
+            return <Loader isFetching/>;
         }
         return (
             <div className="app-wrapper">
@@ -53,11 +53,11 @@ class App extends Component<TStateProps & TDispatchProps> {
     }
 }
 
-let mapStateToProps = (state:AppStateType) => ({
+let mapStateToProps = (state: AppStateType) => ({
     initialised: state.app.initialised
-})
+});
 
-export default connect<TStateProps,TDispatchProps>(mapStateToProps, {
+export default connect<TStateProps, TDispatchProps>(mapStateToProps, {
     checkLoginThunkCreator,
     initialisedSuccessfulThunkCreator
 })(App);

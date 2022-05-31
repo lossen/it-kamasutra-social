@@ -4,23 +4,23 @@ import Header from './Header';
 import {logoutThunkCreator} from '../../redux/authReducer';
 import {AppStateType} from '../../redux/reduxStore';
 
-class HeaderContainer extends React.Component<TStateProps & TDispatchProps & TOwnProps>{
+class HeaderContainer extends React.Component<TStateProps & TDispatchProps & TOwnProps> {
 
     render() {
         return (
             <Header {...this.props}/>
-        )
+        );
     }
 }
 
-let mapStateToProps = (state:AppStateType) => ({
+let mapStateToProps = (state: AppStateType) => ({
     email: state.auth.email,
     login: state.auth.login,
     isAuth: state.auth.isAuth,
 
-})
+});
 
-export default connect<TStateProps,TDispatchProps,TOwnProps, AppStateType>(mapStateToProps,{
+export default connect<TStateProps, TDispatchProps, TOwnProps, AppStateType>(mapStateToProps, {
     logoutThunkCreator
 })(HeaderContainer);
 

@@ -15,40 +15,41 @@ type InitialStateType = typeof initialState;
 let initialState = {
     posts: [] as Array<TPost> | [],
     profile: null as null | TProfile,
-    profileStatus: ""
-}
+    profileStatus: ''
+};
 
-const profileReducer = (state = initialState, action:ActionsTypes):InitialStateType => {
-    switch (action.type){
+const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+    switch (action.type) {
         case ADD_POST:
-            let newPost = {id: state.posts.length +1, message: action.body, likesCount: 17};
+            let newPost = {id: state.posts.length + 1, message: action.body, likesCount: 17};
             return {
                 ...state,
-                posts: [...state.posts, newPost ],
-            }
+                posts: [...state.posts, newPost],
+            };
         case SET_USER_PROFILE:
             return {
                 ...state,
                 profile: action.profile
-            }
+            };
         case SET_PROFILE_STATUS:
             return {
                 ...state,
                 profileStatus: action.profileStatus
-            }
+            };
         case DELETE_POST:
             return {
                 ...state,
                 posts: [...state.posts].filter(p => p.id !== action.id)
-            }
+            };
         case SAVE_PHOTOS:
             return {
                 ...state,
                 profile: {...state.profile, photos: action.photos}
-            }
-        default: return state;
+            };
+        default:
+            return state;
     }
-}
+};
 type ActionsTypes = InferActionsTypes<typeof actionCreators>
 export const actionCreators = {
     addPost: (body) => ({type: ADD_POST, body}),
@@ -58,60 +59,60 @@ export const actionCreators = {
         type: SET_USER_PROFILE,
         profile
     }),
-    setProfileStatus: (profileStatus:string) => ({
+    setProfileStatus: (profileStatus: string) => ({
         type: SET_PROFILE_STATUS,
         profileStatus
     })
-}
+};
 
 //thunk creators
 
-export const getProfileDataThunkCreator = (userId:number):TThunk =>
+export const getProfileDataThunkCreator = (userId: number): TThunk =>
     async (dispatch) => {
-        let data = await profileAPI.getProfileData(userId)
-        dispatch(actionCreators.setUserProfile(data))
-    }
+        let data = await profileAPI.getProfileData(userId);
+        dispatch(actionCreators.setUserProfile(data));
+    };
 
-export const getProfileStatusThunkCreator = (userId:number):TThunk =>
+export const getProfileStatusThunkCreator = (userId: number): TThunk =>
     async (dispatch) => {
-        let data = await profileAPI.getProfileStatus(userId)
-        dispatch(actionCreators.setProfileStatus(data))
-    }
+        let data = await profileAPI.getProfileStatus(userId);
+        dispatch(actionCreators.setProfileStatus(data));
+    };
 
-export const setProfileStatusThunkCreator = (status:string):TThunk =>
+export const setProfileStatusThunkCreator = (status: string): TThunk =>
     async (dispatch) => {
-        let res = await profileAPI.setProfileStatus(status)
+        let res = await profileAPI.setProfileStatus(status);
         if (res.data.resultCode === 0) {
-            dispatch(actionCreators.setProfileStatus(status))
+            dispatch(actionCreators.setProfileStatus(status));
         }
-    }
+    };
 
-export const addPostThunkCreator = (newPostText:string):TThunk =>
+export const addPostThunkCreator = (newPostText: string): TThunk =>
     async (dispatch) => {
-        let data = await profileAPI.addNewPost(newPostText)
+        let data = await profileAPI.addNewPost(newPostText);
         if (data.resultCode === 0) {
-            dispatch(actionCreators.addPost(data.post))
+            dispatch(actionCreators.addPost(data.post));
         }
-    }
+    };
 
-export const saveAvatar = (file:File):TThunk =>
+export const saveAvatar = (file: File): TThunk =>
     async (dispatch) => {
-        let res = await profileAPI.sendPhoto(file)
+        let res = await profileAPI.sendPhoto(file);
         if (res.resultCode === 0) {
-            dispatch(actionCreators.saveAvatar(res.data.photos))
+            dispatch(actionCreators.saveAvatar(res.data.photos));
         }
-    }
+    };
 
-export const saveProfileData = (data:TProfile):TThunk =>
-    async (dispatch,getState) => {
-        let res = await profileAPI.saveProfile(data)
+export const saveProfileData = (data: TProfile): TThunk =>
+    async (dispatch, getState) => {
+        let res = await profileAPI.saveProfile(data);
         if (res.resultCode === 0) {
-            return dispatch(getProfileDataThunkCreator(getState().auth.userId))
-        }else {
-            dispatch(stopSubmit("profileDataForm", {"contacts": {"_error": res.messages[0]}})) //stop submit allows any action
-            return Promise.reject(res.messages[0])
+            return dispatch(getProfileDataThunkCreator(getState().auth.userId));
+        } else {
+            dispatch(stopSubmit('profileDataForm', {'contacts': {'_error': res.messages[0]}})); //stop submit allows any action
+            return Promise.reject(res.messages[0]);
         }
-    }
+    };
 //thunk creators end
 type TThunk = TBaseThunk<ActionsTypes | FormAction>;
 
