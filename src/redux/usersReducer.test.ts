@@ -53,7 +53,8 @@ beforeEach(() => {
         isFetching: false,
         followingProgressQueue: [],
         filter: {
-            term: ''
+            term: '',
+            friend: null
         }
     };
 });

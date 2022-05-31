@@ -19,7 +19,8 @@ let initialState = {
     users: [] as Array<TUser> | [],
     pageSize: 100,
     filter: {
-        term: ''
+        term: '',
+        friend: null as null | boolean
     },
     totalUsersCount: 21,
     currentPage: 1,
@@ -69,7 +70,7 @@ const usersReducer = (state = initialState, action: ActionsTypes): TInitialState
         case SET_FILTER:
             return {
                 ...state,
-                filter: action.payload
+                ...action.payload
             };
         default:
             return state;
@@ -106,20 +107,20 @@ export const actionCreators = {
         isFetching,
         userId
     }),
-    setFilter: (term: string) => ({
+    setFilter: (filter:TFilter) => ({
         type: SET_FILTER,
-        payload: {term}
+        payload: {filter}
     })
 
 };
 
 //thunk creators
-export const getUsers = (page: number, pageSize: number, term: string): TThunk =>
+export const getUsers = (page: number, pageSize: number, filter:TFilter): TThunk =>
     async (dispatch) => { //thunk function
         dispatch(actionCreators.setFetching(true));
-        dispatch(actionCreators.setFilter(term));
+        dispatch(actionCreators.setFilter(filter));
         dispatch(actionCreators.setCurrentPage(page));
-        let data = await usersAPI.getUsers(page, pageSize, term);
+        let data = await usersAPI.getUsers(page, pageSize, filter);
         dispatch(actionCreators.setFetching(false));
         dispatch(actionCreators.setUsers(data.items));
         dispatch(actionCreators.setTotalUsersCount(data.totalCount));
@@ -151,9 +152,9 @@ export const setCurrentPage = (currentPage: number): TThunk => //thunk creator
     async (dispatch) => { //thunk function
         dispatch(actionCreators.setCurrentPage(currentPage));
     };
-export const setFilter = (term: string): TThunk =>
+export const setFilter = (filter:TFilter): TThunk =>
     async (dispatch) => {
-        dispatch(actionCreators.setFilter(term));
+        dispatch(actionCreators.setFilter(filter));
     };
 //thunk functions end
 export default usersReducer;

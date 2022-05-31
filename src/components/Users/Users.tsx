@@ -13,7 +13,7 @@ type PropsType = {
     users: Array<TUser>,
 
     setCurrentPage: (page: number) => void,
-    getUsers: (page: number, term: string) => void,
+    getUsers: (page: number, filter: TFilter) => void,
     followUser: (user_id: number) => void,
     unfollowUser: (user_id: number) => void,
     followingProgressQueue: Array<number>,

@@ -10,7 +10,7 @@ type PropsType = {
     currentPage: number,
 
     setCurrentPage: (page: number) => void,
-    getList: (page: number, term: string) => void,
+    getList: (page: number, filter: TFilter) => void,
 }
 
 const Pagination: React.FC<PropsType> = ({portionSize = 10, ...props}) => {
@@ -22,7 +22,7 @@ const Pagination: React.FC<PropsType> = ({portionSize = 10, ...props}) => {
 
     const onChangePage = (page) => {
         props.setCurrentPage(page);
-        props.getList(page, props.filter.term);
+        props.getList(page, props.filter);
     };
 
     let portionCount = Math.ceil(pagesCount / portionSize);

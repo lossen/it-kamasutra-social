@@ -16,33 +16,13 @@ import {
 import {TUser} from '../../types/types';
 import {AppStateType} from '../../redux/reduxStore';
 
-type OwnProps = {}
-type MapStatePropsType = {
-    users: Array<TUser>
-    filter: TFilter
-    currentPage: number
-    pageSize: number
-    totalUsersCount: number
-    isFetching: boolean
-    followingProgressQueue: Array<number>
-}
-type MapDispatchPropsType = {
-    setCurrentPage: (currentPage: number) => void
-    getUsers: (page: number, pageSize: number, term: string) => void
-    followUser: (user_id: number) => void
-    unfollowUser: (user_id: number) => void
-    setFilter: (term: string) => void
-}
-
-type PropsType = MapStatePropsType & MapDispatchPropsType & OwnProps;
-
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
-        this.onGetUsers(this.props.currentPage, this.props.filter.term);
+        this.onGetUsers(this.props.currentPage, this.props.filter);
     }
 
-    onGetUsers = (page: number, term: string) => {
-        this.props.getUsers(page, this.props.pageSize, term);
+    onGetUsers = (page: number, filter: TFilter) => {
+        this.props.getUsers(page, this.props.pageSize, filter);
     };
 
     onFollowUser = (user_id: number) => {
@@ -55,7 +35,7 @@ class UsersContainer extends React.Component<PropsType> {
 
     onFilterChanged = (filter: TFilter) => {
         let {pageSize} = this.props;
-        this.props.getUsers(1, pageSize, filter.term);
+        this.props.getUsers(1, pageSize, filter);
     };
 
     render() {
@@ -97,3 +77,23 @@ export default compose<React.ComponentType>(
             setFilter
         }),
 )(UsersContainer);
+
+type OwnProps = {}
+type MapStatePropsType = {
+    users: Array<TUser>
+    filter: TFilter
+    currentPage: number
+    pageSize: number
+    totalUsersCount: number
+    isFetching: boolean
+    followingProgressQueue: Array<number>
+}
+type MapDispatchPropsType = {
+    setCurrentPage: (currentPage: number) => void
+    getUsers: (page: number, pageSize: number, filter: TFilter) => void
+    followUser: (user_id: number) => void
+    unfollowUser: (user_id: number) => void
+    setFilter: (filter:TFilter) => void
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnProps;
