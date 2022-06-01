@@ -24,7 +24,7 @@ const UsersSearch: React.FC<TProps> = (props) => {
                         <Field name="friend" as="select">
                             {friendValues.map(v => {
                                 return(
-                                    <option value={v.text}>{v.text}</option>
+                                    <option key={v.id} value={v.text}>{v.text}</option>
                                 )
                             })}
                         </Field>

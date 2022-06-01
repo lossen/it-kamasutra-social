@@ -2,9 +2,9 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import {Route, Routes} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
-import LoginContainer from './components/Login/LoginContainer';
+import LoginPage from './components/Login/LoginPage';
 import React, {Component} from 'react';
-import {checkLoginThunkCreator} from './redux/authReducer';
+import {checkLogin} from './redux/authReducer';
 import {connect} from 'react-redux';
 import {initialisedSuccessfulThunkCreator} from './redux/appReducer';
 import Loader from './components/common/Loader/Loader';
@@ -45,7 +45,7 @@ class App extends Component<TStateProps & TDispatchProps> {
                         <Route path="/users/*"
                                element={<UsersPage/>}/>
                         <Route path="/login/*"
-                               element={<LoginContainer/>}/>
+                               element={<LoginPage/>}/>
                     </Routes>
                 </div>
             </div>
@@ -58,6 +58,6 @@ let mapStateToProps = (state: AppStateType) => ({
 });
 
 export default connect<TStateProps, TDispatchProps>(mapStateToProps, {
-    checkLoginThunkCreator,
+    checkLoginThunkCreator: checkLogin,
     initialisedSuccessfulThunkCreator
 })(App);

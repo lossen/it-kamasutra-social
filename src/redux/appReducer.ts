@@ -1,4 +1,4 @@
-import {checkLoginThunkCreator} from './authReducer';
+import {checkLogin} from './authReducer';
 import {APP_NAME} from '../commonConsts';
 import {InferActionsTypes, TBaseThunk} from './reduxStore';
 
@@ -31,7 +31,7 @@ const actionCreators = {
 //thunk creators
 export const initialisedSuccessfulThunkCreator = (): TThunk =>
     async (dispatch) => {
-        await dispatch(checkLoginThunkCreator());
+        await dispatch(checkLogin());
         dispatch(actionCreators.initialisedSuccessful());
     };
 

@@ -43,7 +43,7 @@ const actionCreators = {
 };
 
 //thunk creators
-export const checkLoginThunkCreator = (): TThunk => //thunk creator
+export const checkLogin = (): TThunk => //thunk creator
     async (dispatch) => { //thunk function
         let data = await authAPI.checkLogin();
         if (data.resultCode === ResultCodesEnum.Success) {
@@ -53,11 +53,11 @@ export const checkLoginThunkCreator = (): TThunk => //thunk creator
         }
     };
 
-export const loginThunkCreator = (email: string, password: string, rememberMe: boolean, captcha: string): TThunk =>
+export const login = (email: string, password: string, rememberMe: boolean, captcha: string): TThunk =>
     async (dispatch) => {
         let data = await authAPI.login(email, password, rememberMe, captcha);
         if (data.resultCode === ResultCodesEnum.Success) {
-            dispatch(checkLoginThunkCreator());
+            dispatch(checkLogin());
         } else {
             if (data.resultCode === ResultCodesEnum.CaptchaIsRequired) {
                 dispatch(getCaptchaUrl());
@@ -67,7 +67,7 @@ export const loginThunkCreator = (email: string, password: string, rememberMe: b
         }
     };
 
-export const logoutThunkCreator = (): TThunk =>
+export const logout = (): TThunk =>
     async (dispatch) => {
         let data = await authAPI.logout();
         if (data.resultCode === ResultCodesEnum.Success) {

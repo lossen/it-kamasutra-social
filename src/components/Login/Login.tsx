@@ -3,7 +3,7 @@ import {Field, InjectedFormProps} from 'redux-form';
 import {Input} from '../common/Forms/FormControls';
 import {required} from '../../utils/validators';
 import classes from './Login.module.css';
-import {TLoginValues} from './LoginContainer';
+import {TLoginValues} from './LoginPage';
 
 export type TOwnProps = {
     captchaUrl: string

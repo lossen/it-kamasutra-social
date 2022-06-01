@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Header from './Header';
-import {logoutThunkCreator} from '../../redux/authReducer';
+import {logout} from '../../redux/authReducer';
 import {AppStateType} from '../../redux/reduxStore';
 
 class HeaderContainer extends React.Component<TStateProps & TDispatchProps & TOwnProps> {
@@ -21,7 +21,7 @@ let mapStateToProps = (state: AppStateType) => ({
 });
 
 export default connect<TStateProps, TDispatchProps, TOwnProps, AppStateType>(mapStateToProps, {
-    logoutThunkCreator
+    logoutThunkCreator: logout
 })(HeaderContainer);
 
 export type TStateProps = {
