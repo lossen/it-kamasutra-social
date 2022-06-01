@@ -19,7 +19,7 @@ type TDispatchProps = {
 
 const DialogsContainer = withSuspense(React.lazy(() => import('./components/Dialogs/DialogsContainer')));
 const ProfileContainer = withSuspense(React.lazy(() => import('./components/Profile/ProfileContainer')));
-const UsersContainer = withSuspense(React.lazy(() => import('./components/Users/UsersContainer')));
+const UsersPage = withSuspense(React.lazy(() => import('./components/Users/UsersPage')));
 
 class App extends Component<TStateProps & TDispatchProps> {
     componentDidMount() {
@@ -43,7 +43,7 @@ class App extends Component<TStateProps & TDispatchProps> {
                         <Route path="/dialogs/*"
                                element={<DialogsContainer/>}/>
                         <Route path="/users/*"
-                               element={<UsersContainer/>}/>
+                               element={<UsersPage/>}/>
                         <Route path="/login/*"
                                element={<LoginContainer/>}/>
                     </Routes>

@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import classes from './Pagination.module.css';
-import {TFilter} from '../../../redux/usersReducer';
+import {setCurrentPage, TFilter} from '../../../redux/usersReducer';
+import {useDispatch} from 'react-redux';
+import {TThunkDispatch} from '../../../redux/reduxStore';
 
 type PropsType = {
     portionSize?: number,
@@ -9,7 +11,6 @@ type PropsType = {
     filter: TFilter,
     currentPage: number,
 
-    setCurrentPage: (page: number) => void,
     getList: (page: number, filter: TFilter) => void,
 }
 
@@ -20,8 +21,10 @@ const Pagination: React.FC<PropsType> = ({portionSize = 10, ...props}) => {
         pages.push(i);
     }
 
+    const dispatch:TThunkDispatch = useDispatch();
+
     const onChangePage = (page) => {
-        props.setCurrentPage(page);
+        dispatch(setCurrentPage(page))
         props.getList(page, props.filter);
     };
 
