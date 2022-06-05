@@ -13,6 +13,7 @@ import {
     getUsersSelector
 } from '../../redux/usersSelectors';
 import {TThunkDispatch} from '../../redux/reduxStore';
+import {useParams, useSearchParams} from 'react-router-dom';
 
 type PropsType = {
 
@@ -25,12 +26,31 @@ const Users: React.FC<PropsType> = (props) => {
     const pageSize = useSelector(getPageSize)
     const filter = useSelector(getFilter)
     const dispatch:TThunkDispatch = useDispatch();
+    let [searchParams, setSearchParams] = useSearchParams();
+
+
 
     useEffect(() => {
-        onGetUsers(currentPage);
+        //todo
+        let searchQueryFilter = Object.fromEntries(searchParams.entries())
+        if(searchQueryFilter){
+            onGetUsers(Number(searchQueryFilter.page), {
+                term: searchQueryFilter.term ? searchQueryFilter.term : '',
+                friend: searchQueryFilter.friend === null ? null : searchQueryFilter.friend,
+            });
+        }else onGetUsers(currentPage, filter);
     },[])
 
-    const onGetUsers = (page: number) => {
+    useEffect(() => {
+        //todo
+        let searchQueryFilter = Object.fromEntries(searchParams.entries())
+        let $term = filter.term ? `&term=${filter.term}` : '';
+        let $friend = filter.friend === true || filter.friend === false ? `&friend=${filter.friend}` : '';
+        let params = `?page=${currentPage}&count=${pageSize}${$term}${$friend}`
+        setSearchParams(params);
+    },[filter,currentPage,pageSize]);
+
+    const onGetUsers = (page: number,filter) => {
         dispatch(getUsers(page, pageSize, filter))
     };
     const onFilterChanged = (filter: TFilter) => {
