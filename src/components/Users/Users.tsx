@@ -73,7 +73,7 @@ const Users: React.FC<PropsType> = (props) => {
                         getList={onGetUsers}
                         portionSize={10}
                         filter={filter}/>
-            {users && users.map(user => {
+            {users.map(user => {
                 return (
                     <User key={user.id} user={user}
                           followUser={onFollow} unfollowUser={onUnfollow}

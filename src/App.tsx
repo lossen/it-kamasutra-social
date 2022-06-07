@@ -1,6 +1,6 @@
 import 'antd/dist/antd.css';
 import './App.css';
-import {Route, Routes} from 'react-router-dom';
+import {NavLink, Route, Routes} from 'react-router-dom';
 import LoginPage from './components/Login/LoginPage';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -10,9 +10,9 @@ import {withSuspense} from './components/hocs/WithSuspense/WithSuspense';
 import {AppStateType, TThunkDispatch} from './redux/reduxStore';
 import type {MenuProps} from 'antd';
 import {Breadcrumb, Button, Layout, Menu} from 'antd';
-import {DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined,} from '@ant-design/icons';
-import HeaderContainer from './components/Header/HeaderContainer';
-import Navbar from './components/Navbar/Navbar';
+import {DesktopOutlined, UserOutlined,} from '@ant-design/icons';
+import {ProfileTwoTone, SettingOutlined, ShakeOutlined} from "@ant-design/icons/lib/icons";
+import AppHeader from "./components/Header/AppHeader";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -33,15 +33,19 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
-    ]),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
+    getItem('Profile', '1',  <NavLink to="/profile"><ProfileTwoTone /></NavLink>),
+    getItem('Dialogs', '2', <NavLink to="/dialogs"><DesktopOutlined /></NavLink>),
+    getItem('News', '3', <NavLink to="/news"><DesktopOutlined /></NavLink>),
+    getItem('Users', '4', <NavLink to="/users"><UserOutlined /></NavLink>),
+    getItem('Music', '5', <NavLink to="/music"><ShakeOutlined /></NavLink>),
+    getItem('Settings', '6', <NavLink to="/settings"><SettingOutlined /></NavLink>),
+    // getItem('User', 'sub1', <UserOutlined />, [
+    //     getItem('Tom', '3'),
+    //     getItem('Bill', '4'),
+    //     getItem('Alex', '5'),
+    // ]),
+    // getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+    // getItem('Files', '9', <FileOutlined />),
 ];
 
 const DialogsContainer = withSuspense(React.lazy(() => import('./components/Dialogs/DialogsContainer')));
@@ -63,12 +67,9 @@ const App:React.FC = (props) => {
             <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
                 <div className="logo" />
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
-                <Navbar/>
             </Sider>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0 }}>
-                    <HeaderContainer/>
-                </Header>
+                <AppHeader/>
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>User</Breadcrumb.Item>
@@ -94,13 +95,6 @@ const App:React.FC = (props) => {
                 <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
             </Layout>
         </Layout>
-    // <div className="app-wrapper">
-    //
-    //     <Navbar/>
-    //     <div className="app-wrapper-content">
-    //
-    // {/*    </div>*/}
-    // {/*</div>*/}
 )
 }
 
